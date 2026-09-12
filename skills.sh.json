@@ -1,0 +1,16 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Software Critique",
+      "description": "Evidence-backed reviews of software, products, and codebases.",
+      "skills": ["software-critique"]
+    },
+    {
+      "title": "Health",
+      "description": "Evidence-based lab report and biomarker analysis.",
+      "skills": ["medical-assistant"]
+    }
+  ]
+}

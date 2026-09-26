@@ -5,12 +5,23 @@
     {
       "title": "Software Critique",
       "description": "Evidence-backed reviews of software, products, and codebases.",
-      "skills": ["software-critique"]
+      "skills": [
+        "software-critique"
+      ]
+    },
+    {
+      "title": "Code Review",
+      "description": "Plain-language explanations of what a code change did and what happens next.",
+      "skills": [
+        "eli5"
+      ]
     },
     {
       "title": "Health",
       "description": "Evidence-based lab report and biomarker analysis.",
-      "skills": ["medical-assistant"]
+      "skills": [
+        "medical-assistant"
+      ]
     }
   ]
 }

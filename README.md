@@ -9,7 +9,7 @@ Custom agent skills, published for install with the [`skills` CLI](https://skill
 npx skills add yadav-prakhar/hermes-custom-skills --list
 
 # pick skills by name
-npx skills add yadav-prakhar/hermes-custom-skills --skill software-critique --skill medical-assistant
+npx skills add yadav-prakhar/hermes-custom-skills --skill software-critique --skill eli5
 
 # global install for a specific agent, no prompts
 npx skills add yadav-prakhar/hermes-custom-skills --skill software-critique -g -a claude-code -y
@@ -24,6 +24,7 @@ scan depth — no `--full-depth` needed.
 | --- | --- |
 | [`software-critique`](skills/software-critique/SKILL.md) | Panel-style critique of a product, codebase, or repo: evidence-backed findings, severity by user impact, verdict up front. |
 | [`medical-assistant`](skills/medical-assistant/SKILL.md) | Evidence-based lab report / biomarker analysis (references the full protocol in `references/master-prompt.md`). |
+| [`eli5`](skills/eli5/SKILL.md) | Plain-language ELI5 TL;DR of a PR, issue chain, commit range, or the agent's own work: before → now, guarantees, what's unchanged, what you must do next. |
 
 ## Rest of the repo
 

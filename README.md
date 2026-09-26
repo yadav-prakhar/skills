@@ -1,4 +1,4 @@
-# hermes-custom-skills
+# skills
 
 Custom agent skills, published for install with the [`skills` CLI](https://skills.sh) (`npx skills add`).
 
@@ -6,17 +6,18 @@ Custom agent skills, published for install with the [`skills` CLI](https://skill
 
 ```bash
 # from the repo (any agent)
-npx skills add yadav-prakhar/hermes-custom-skills --list
+npx skills add yadav-prakhar/skills --list
 
 # pick skills by name
-npx skills add yadav-prakhar/hermes-custom-skills --skill software-critique --skill eli5
+npx skills add yadav-prakhar/skills --skill software-critique --skill eli5
 
 # global install for a specific agent, no prompts
-npx skills add yadav-prakhar/hermes-custom-skills --skill software-critique -g -a claude-code -y
+npx skills add yadav-prakhar/skills --skill software-critique -g -a claude-code -y
 ```
 
-Skills live under `skills/<name>/SKILL.md`, so they are discovered at the default
-scan depth — no `--full-depth` needed.
+Skills live under `skills/<name>/SKILL.md` and are declared in
+[`.claude-plugin/plugin.json`](.claude-plugin/plugin.json), so installed skills are grouped
+under **PrakharYadav Skills** in `npx skills list`.
 
 ## Published skills
 
@@ -26,15 +27,20 @@ scan depth — no `--full-depth` needed.
 | [`medical-assistant`](skills/medical-assistant/SKILL.md) | Evidence-based lab report / biomarker analysis (references the full protocol in `references/master-prompt.md`). |
 | [`eli5`](skills/eli5/SKILL.md) | Plain-language ELI5 TL;DR of a PR, issue chain, commit range, or the agent's own work: before → now, guarantees, what's unchanged, what you must do next. |
 
-## Rest of the repo
+## Hermes backup
 
-The remaining skills are a backup of a Hermes default-profile skills directory and are
-nested by category (e.g. `productivity/xlsx/SKILL.md`, `mlops/inference/llama-cpp/SKILL.md`).
-Because the repo root and `skills/` both contain skills, the CLI stops at the default
-scan depth; install any nested skill by direct path instead:
+[`hermes-backup/`](hermes-backup/) is a backup of a Hermes default-profile skills directory,
+nested by category (e.g. `hermes-backup/productivity/xlsx/SKILL.md`). It sits outside the
+CLI's default scan paths, so it does not show up in `npx skills add yadav-prakhar/skills`.
+Install from it by path:
 
 ```bash
-npx skills add https://github.com/yadav-prakhar/hermes-custom-skills/tree/master/productivity/xlsx
-# or scan everything:
-npx skills add yadav-prakhar/hermes-custom-skills --full-depth --list
+# one category
+npx skills add https://github.com/yadav-prakhar/skills/tree/master/hermes-backup/productivity --list
+
+# one skill
+npx skills add https://github.com/yadav-prakhar/skills/tree/master/hermes-backup/productivity/xlsx
+
+# everything, backup included
+npx skills add yadav-prakhar/skills --full-depth --list
 ```

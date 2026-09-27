@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>ELI5 — Agent Skills</title>
+  <meta name="description" content="Explain any concept, code, system, product mechanism, error, or engineering change with the simplest accurate mental model for the audience. Use when the user says &quot;eli5&quot;, asks for plain English or a ">
+  <link rel="canonical" href="https://yadav-prakhar.github.io/skills/skills/eli5/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ELI5 — Agent Skills">
+  <meta property="og:description" content="Explain any concept, code, system, product mechanism, error, or engineering change with the simplest accurate mental model for the audience. Use when the user says &quot;eli5&quot;, asks for plain English or a ">
+  <meta property="og:url" content="https://yadav-prakhar.github.io/skills/skills/eli5/">
+  <link rel="stylesheet" href="/skills/assets/style.css">
+  <script>try{let t=localStorage.getItem('skills-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  <script src="/skills/assets/site.js" defer></script>
+</head>
+<body class="skill-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="/skills/" aria-label="Skills home">SKILLS<span class="wordmark-period">.</span></a>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-label="Open skill navigation" aria-expanded="false" aria-controls="skill-sidebar"><span></span><span></span></button>
+        <a class="github-link" href="https://github.com/yadav-prakhar/skills">GitHub <span aria-hidden="true">↗</span></a>
+        <label class="theme-control"><span class="visually-hidden">Color theme</span><select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <aside class="sidebar" id="skill-sidebar" aria-label="Skill navigation">
+    <div class="sidebar-inner"><a class="sidebar-home" href="/skills/">All skills <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Browse skills">
+        <div class="nav-group"><h2>Software Critique</h2>
+          <ul><li><a href="/skills/skills/software-critique/">Software Critique</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Code Communication</h2>
+          <ul><li><a href="/skills/skills/change-tldr/">Change TL;DR</a></li><li><a href="/skills/skills/change-explainer/">Change Explainer</a></li><li><a href="/skills/skills/eli5/" aria-current="page">ELI5</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Health</h2>
+          <ul><li><a href="/skills/skills/medical-assistant/">Medical Assistant</a></li></ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+    <button class="nav-scrim" type="button" aria-label="Close skill navigation" hidden></button>
+    <main id="main" class="doc-main">
+      <article>
+        <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Code Communication<span aria-hidden="true">/</span>ELI5</p>
+          <h1>ELI5</h1>
+          <p class="doc-lede">Construct the simplest accurate mental model for the intended audience.</p>
+        </header>
+        <div class="prose"><p><strong>Simplify the explanation, not the underlying truth.</strong> Remove unnecessary complexity while preserving the distinctions, limits, and tradeoffs the reader needs.</p>
+<h2 id="response-contract">Response contract</h2>
+<p>Deliver only the requested explanation. For exactly N sentences, write N plain-prose sentences, count the complete response before sending, and fit the mechanism and essential caveat inside that budget. Omit headings, duplicated summaries, postscripts, and unrelated workflow or model-selection advice in this mode.</p>
+<p>Make the first sentence as evidence-aware as the last: lead with &quot;The PR proposes…&quot; when only a description is available, and label a typical mechanism as an illustration before describing it. A caveat at the end cannot repair an opening that presents unverified behavior as fact. Describe possible benefits conditionally; give numerical speedups or outcomes only when supported by cited evidence.</p>
+<p>For a technical category, define what its variants share before choosing a representative implementation; a familiar implementation is an example, not the definition of the whole category. Attach the tested revision or state to any verified result. When evidence is missing, name the specific source needed to confirm the explanation.</p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>
+<p><strong>Pin the subject and audience.</strong> Determine what is being explained, what the reader is trying to do with the explanation, and what they likely already know. Infer this from the conversation when possible. Ask one focused question only when a wrong audience assumption would materially change the answer. Otherwise default to an intelligent newcomer to this subject, not a literal five-year-old.</p>
+</li>
+<li>
+<p><strong>Choose the explanation mode:</strong></p>
+<ul>
+<li><strong>Concept or product mechanism:</strong> what it is, how it works, and why it exists.</li>
+<li><strong>Code or function:</strong> inputs, important flow, outputs, side effects, and failure modes.</li>
+<li><strong>Architecture or system:</strong> components, responsibilities, boundaries, and the path one representative request takes.</li>
+<li><strong>Error:</strong> what happened, why, what the system expected, and what to do next.</li>
+<li><strong>Engineering change:</strong> when <code>change-explainer</code> is available, request its investigation-only steps 1–5 and consume the evidence map, not its final report. Reuse existing evidence only when it matches the target revisions and relevant working-tree state. <code>eli5</code> owns the audience, requested length, formatting, and the single final answer; investigation depth does not expand the requested output.</li>
+</ul>
+<p>When <code>change-explainer</code> is unavailable, inspect the supplied change directly: a single commit's patch, the user's explicit range endpoints, a branch against its intended base's merge-base, or session work separated into committed, staged, unstaged, and relevant untracked changes. Explain before → now, blast radius, and uncertainty. Distinguish <strong>Verified</strong> inspected run evidence tied to the target revision/state from <strong>Reported</strong> author claims and <strong>Not verified</strong> missing or stale evidence. Require baseline evidence before calling a failure pre-existing. When access is unavailable, explain only supplied material and name what remains unknown rather than inventing implementation details.</p>
+</li>
+<li>
+<p><strong>Build the mental model.</strong> State the central idea in one sentence. Select only the mechanism needed to make that sentence true. Identify one likely misconception and the caveat or boundary that prevents it.</p>
+</li>
+<li>
+<p><strong>Explain progressively.</strong> Use only the layers the request needs:</p>
+<ul>
+<li><strong>In one sentence:</strong> the shortest accurate answer.</li>
+<li><strong>Mental model:</strong> the small set of parts and relationships to remember.</li>
+<li><strong>How it works:</strong> a concrete sequence or representative example.</li>
+<li><strong>Technical translation:</strong> map plain-language terms to the real vocabulary.</li>
+<li><strong>Why it matters:</strong> consequence, tradeoff, or next action.</li>
+</ul>
+<p>A reader should be able to stop after any layer without being misled by what they have read so far. An explicit length or format request overrides the default shape; fit the essential caveat within that limit rather than appending another report.</p>
+</li>
+<li>
+<p><strong>Use an analogy only when it clarifies a real relationship.</strong> State where the analogy stops matching. Prefer no analogy when the concept is already simpler without one, when the analogy hides an important distinction, or when explaining the analogy takes more work than explaining the subject.</p>
+</li>
+<li>
+<p><strong>Choose the clearest representation.</strong> Use prose by default. Use a tiny diagram, table, or before/after example when relationships, comparisons, or flow become clearer visually. Match the format the user requests; do not force an HTML artifact.</p>
+</li>
+<li>
+<p><strong>Check accuracy and the response contract.</strong> Verify factual claims against available code, documentation, output, or trusted sources. Preserve important costs and failure cases: an index can speed reads <em>and</em> slow writes; a cache can reduce latency <em>and</em> serve stale data. State the conditions under which an optimization helps rather than promising improvement for every workload. Label uncertainty where the claim appears instead of smoothing it away. Done when the explanation is simpler than the source, still lets the reader make correct predictions, and meets the requested length including every sentence in the final response.</p>
+</li>
+</ol>
+<h2 id="default-shape">Default shape</h2>
+<pre><code class="language-markdown">**In one sentence:** &lt;the shortest accurate mental model.&gt;
+
+&lt;One or two short paragraphs or a small diagram showing how it works.&gt;
+
+**Technical translation:** &lt;plain term&gt; = &lt;real term&gt;; &lt;plain term&gt; = &lt;real term&gt;.
+
+**Why it matters:** &lt;consequence, tradeoff, or next action.&gt;
+
+&lt;Optional: &quot;The important catch is …&quot; or &quot;Where the analogy breaks: …&quot;&gt;
+</code></pre>
+<p>Adapt the shape to the mode. For an error, lead with what happened and the next action. For code, trace one representative input. For architecture, follow one request across component boundaries. For a change, lead with before → now and distinguish verified behavior from intended behavior.</p>
+<h2 id="voice">Voice</h2>
+<ul>
+<li>Plain, direct, and respectful; simple is not childish.</li>
+<li>Concrete before abstract. Introduce vocabulary after the reader has a place to attach it.</li>
+<li>One strong mental model is better than several competing analogies.</li>
+<li>Keep necessary domain terms and define them once.</li>
+<li>Include the caveat that changes what the reader would predict; omit trivia that does not.</li>
+<li>Answer the user's real &quot;so what?&quot; rather than merely translating jargon.</li>
+</ul>
+<p>For examples of a concept, a three-sentence change explanation, and unavailable repository evidence, read <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/eli5/references/examples.md">references/examples.md</a>.</p>
+</div>
+        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+          <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/eli5/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
+        </section>
+        <nav class="page-turn" aria-label="Adjacent skills">
+          <a href="/skills/skills/change-explainer/" rel="prev"><span>← Previous</span><strong>Change Explainer</strong></a>
+          <a href="/skills/skills/medical-assistant/" rel="next"><span>Next →</span><strong>Medical Assistant</strong></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

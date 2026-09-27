@@ -1,67 +1,75 @@
 ---
 name: eli5
-description: ELI5 TL;DR of a code change — what actually happened and what will happen because of it, in plain language. Use when asked to "eli5", "tldr", or explain what a PR, issue chain, commit range, branch, or the agent's own work changed.
+description: Explain any concept, code, system, product mechanism, error, or engineering change with the simplest accurate mental model for the audience. Use when the user says "eli5", asks for plain English or a beginner explanation, or wants to understand how something works without unnecessary complexity.
 ---
 
 # ELI5
 
-Write a plain-language TL;DR that lets a reviewer who has not read the code know what changed in behaviour, why, and what it means for them next. The reader is busy, knows the product, and does not know the code.
+Construct the simplest accurate mental model for the intended audience.
+
+**Simplify the explanation, not the underlying truth.** Remove unnecessary complexity while preserving the distinctions, limits, and tradeoffs the reader needs.
+
+## Response contract
+
+Deliver only the requested explanation. For exactly N sentences, write N plain-prose sentences, count the complete response before sending, and fit the mechanism and essential caveat inside that budget. Omit headings, duplicated summaries, postscripts, and unrelated workflow or model-selection advice in this mode.
+
+Make the first sentence as evidence-aware as the last: lead with "The PR proposes…" when only a description is available, and label a typical mechanism as an illustration before describing it. A caveat at the end cannot repair an opening that presents unverified behavior as fact. Describe possible benefits conditionally; give numerical speedups or outcomes only when supported by cited evidence.
+
+For a technical category, define what its variants share before choosing a representative implementation; a familiar implementation is an example, not the definition of the whole category. Attach the tested revision or state to any verified result. When evidence is missing, name the specific source needed to confirm the explanation.
 
 ## Steps
 
-1. **Pin the target** from the user's request:
-   - PR / merge request number or URL: the PR, its diff, its linked issue.
-   - Issue number or URL: the issue and every PR linked to it. This is a chain summary, so cover each PR in order and end with the state of the whole chain.
-   - SHA, range, or branch: `git log` + `git diff` against the merge-base.
-   - Nothing named: the work done in this session, meaning uncommitted and staged changes, commits since the branch point, and what you did in this conversation.
+1. **Pin the subject and audience.** Determine what is being explained, what the reader is trying to do with the explanation, and what they likely already know. Infer this from the conversation when possible. Ask one focused question only when a wrong audience assumption would materially change the answer. Otherwise default to an intelligent newcomer to this subject, not a literal five-year-old.
 
-   Fetch PRs and issues with the forge's CLI or API (`gh`, `glab`, or whatever the repo's host uses). Done when you can name the exact diff you are explaining.
+2. **Choose the explanation mode:**
+   - **Concept or product mechanism:** what it is, how it works, and why it exists.
+   - **Code or function:** inputs, important flow, outputs, side effects, and failure modes.
+   - **Architecture or system:** components, responsibilities, boundaries, and the path one representative request takes.
+   - **Error:** what happened, why, what the system expected, and what to do next.
+   - **Engineering change:** when `change-explainer` is available, request its investigation-only steps 1–5 and consume the evidence map, not its final report. Reuse existing evidence only when it matches the target revisions and relevant working-tree state. `eli5` owns the audience, requested length, formatting, and the single final answer; investigation depth does not expand the requested output.
 
-2. **Read the evidence, the diff first.** Use the PR or commit description and the linked issue or spec only for the *why* and the scope, and check them against the code. Collect verification that actually exists: test and build output from this session, CI check results, or counts quoted in the PR. Done when every behaviour change points to a diff hunk that proves it.
+   When `change-explainer` is unavailable, inspect the supplied change directly: a single commit's patch, the user's explicit range endpoints, a branch against its intended base's merge-base, or session work separated into committed, staged, unstaged, and relevant untracked changes. Explain before → now, blast radius, and uncertainty. Distinguish **Verified** inspected run evidence tied to the target revision/state from **Reported** author claims and **Not verified** missing or stale evidence. Require baseline evidence before calling a failure pre-existing. When access is unavailable, explain only supplied material and name what remains unknown rather than inventing implementation details.
 
-3. **Find the story.** Sort what you found into these buckets, and drop the empty ones:
-   - **Before → now:** each change as a caller or user would notice it. The one that matters most goes first.
-   - **Guarantees:** edge cases the change now handles, each as *never / only / always* plus its consequence.
-   - **Unchanged:** what a reader might fear changed but did not.
-   - **Bugs found:** described by the symptom a user would have *seen*.
-   - **Your call:** actions the human must take, such as rollout order, migration, re-login, release, or a decision left open.
-   - **What's left:** the next ticket or PR, and what is still out of scope.
+3. **Build the mental model.** State the central idea in one sentence. Select only the mechanism needed to make that sentence true. Identify one likely misconception and the caveat or boundary that prevents it.
 
-4. **Write it** in the shape below.
+4. **Explain progressively.** Use only the layers the request needs:
+   - **In one sentence:** the shortest accurate answer.
+   - **Mental model:** the small set of parts and relationships to remember.
+   - **How it works:** a concrete sequence or representative example.
+   - **Technical translation:** map plain-language terms to the real vocabulary.
+   - **Why it matters:** consequence, tradeoff, or next action.
 
-5. **Check it.** Every claim traces to the diff or to real output. Numbers are exact. Each code identifier is one the reader already uses: a tool or command name, error code, endpoint, env var, or setting. Rewrite everything else as what it does. Done when a reviewer could predict the new behaviour from the TL;DR alone.
+   A reader should be able to stop after any layer without being misled by what they have read so far. An explicit length or format request overrides the default shape; fit the essential caveat within that limit rather than appending another report.
 
-6. **Deliver** it as your reply. If the user asks you to post it (PR or issue comment), show the final text and post only after they explicitly say to.
+5. **Use an analogy only when it clarifies a real relationship.** State where the analogy stops matching. Prefer no analogy when the concept is already simpler without one, when the analogy hides an important distinction, or when explaining the analogy takes more work than explaining the subject.
 
-## Shape
+6. **Choose the clearest representation.** Use prose by default. Use a tiny diagram, table, or before/after example when relationships, comparisons, or flow become clearer visually. Match the format the user requests; do not force an HTML artifact.
 
+7. **Check accuracy and the response contract.** Verify factual claims against available code, documentation, output, or trusted sources. Preserve important costs and failure cases: an index can speed reads *and* slow writes; a cache can reduce latency *and* serve stale data. State the conditions under which an optimization helps rather than promising improvement for every workload. Label uncertainty where the claim appears instead of smoothing it away. Done when the explanation is simpler than the source, still lets the reader make correct predictions, and meets the requested length including every sentence in the final response.
+
+## Default shape
+
+```markdown
+**In one sentence:** <the shortest accurate mental model.>
+
+<One or two short paragraphs or a small diagram showing how it works.>
+
+**Technical translation:** <plain term> = <real term>; <plain term> = <real term>.
+
+**Why it matters:** <consequence, tradeoff, or next action.>
+
+<Optional: "The important catch is …" or "Where the analogy breaks: …">
 ```
-**<ticket/PR> is <ready for merge | done | in progress> — [PR #N](url).**
 
-ELI5: <before → now → why it matters → guarantees → unchanged. 3–7 sentences for a single change; up to three short paragraphs for a chain or a release.>
-
-<Optional heads-up, only when the reader must act or would otherwise be surprised: "Before you ship: …" or "Two things the docs now say out loud: …" as 1–3 bullets.>
-
-<Verified: build + exact test counts, pre-existing failures named. Or: "Not verified: …" and what is missing.>
-
-<Where this leaves things: next / remaining / "that call is yours".>
-```
+Adapt the shape to the mode. For an error, lead with what happened and the next action. For code, trace one representative input. For architecture, follow one request across component boundaries. For a change, lead with before → now and distinguish verified behavior from intended behavior.
 
 ## Voice
 
-- **Before/now contrast** carries the explanation: "the old code deleted that login outright… now it writes down 'this exact login was refused'."
-- **Concrete nouns the user sees:** browser tab, login, "unauthorized", a full minute of waiting. Use these instead of HTTP status codes, class names, or function names.
-- **Components talk.** Put a system's message in quotes: tell the credential server "that exact version worked"; the server just says "please upgrade".
-- **Consequence clauses** answer "so what": "because the rejection is written down first, the refusal is never lost."
-- **Honest scope:** say what was deliberately not done, which failures were already there, and what still needs a human.
-- **Plain prose:** use the bold lead line and at most a few bullets. Headings and file lists go in the PR description, not in the TL;DR.
+- Plain, direct, and respectful; simple is not childish.
+- Concrete before abstract. Introduce vocabulary after the reader has a place to attach it.
+- One strong mental model is better than several competing analogies.
+- Keep necessary domain terms and define them once.
+- Include the caveat that changes what the reader would predict; omit trivia that does not.
+- Answer the user's real "so what?" rather than merely translating jargon.
 
-## Example
-
-> **#181 is ready for merge — [PR #187](https://github.com/acme/api-server/pull/187).**
->
-> ELI5: when the instance says "unauthorized" to a call, the old code deleted that instance's saved login outright — throwing away the evidence that the instance had rejected it. Now it writes down "this exact login was refused" (via the same verification call that already records successes, which clears the login and leaves a visible "rejected" marker), and only then opens the browser once to get a new login, retrying the call with it. Because the rejection is written down first, the refusal is never lost — and if the credential server can't write it down, the action fails rather than pretending the bad login is gone. Same login + same "version" of that login = rejected; a genuinely new version = just use it, no browser tab. Nothing is deleted any more, and a later plain call on a rejected entry still reports the rejection instead of quietly re-logging you in.
->
-> Build passed; full suite is **162 files, 2,617 tests**. Next in the chain: #182 (a 401 on the retry itself → stop and report `credential_rejected`, no second browser tab), then #183 and #184.
-
-For a chain-closing or release-readiness TL;DR with bugs found, heads-up bullets, and "your call" items, read [references/examples.md](references/examples.md).
+For examples of a concept, a three-sentence change explanation, and unavailable repository evidence, read [references/examples.md](references/examples.md).

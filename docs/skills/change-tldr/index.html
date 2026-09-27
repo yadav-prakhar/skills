@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Change TL;DR — Agent Skills</title>
+  <meta name="description" content="Give a brief, evidence-backed summary of an engineering change. Use for a TL;DR or concise status of a PR, issue chain, commit, branch, release, or session work; summarize behavior, verification, and ">
+  <link rel="canonical" href="https://yadav-prakhar.github.io/skills/skills/change-tldr/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Change TL;DR — Agent Skills">
+  <meta property="og:description" content="Give a brief, evidence-backed summary of an engineering change. Use for a TL;DR or concise status of a PR, issue chain, commit, branch, release, or session work; summarize behavior, verification, and ">
+  <meta property="og:url" content="https://yadav-prakhar.github.io/skills/skills/change-tldr/">
+  <link rel="stylesheet" href="/skills/assets/style.css">
+  <script>try{let t=localStorage.getItem('skills-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  <script src="/skills/assets/site.js" defer></script>
+</head>
+<body class="skill-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="/skills/" aria-label="Skills home">SKILLS<span class="wordmark-period">.</span></a>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-label="Open skill navigation" aria-expanded="false" aria-controls="skill-sidebar"><span></span><span></span></button>
+        <a class="github-link" href="https://github.com/yadav-prakhar/skills">GitHub <span aria-hidden="true">↗</span></a>
+        <label class="theme-control"><span class="visually-hidden">Color theme</span><select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <aside class="sidebar" id="skill-sidebar" aria-label="Skill navigation">
+    <div class="sidebar-inner"><a class="sidebar-home" href="/skills/">All skills <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Browse skills">
+        <div class="nav-group"><h2>Software Critique</h2>
+          <ul><li><a href="/skills/skills/software-critique/">Software Critique</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Code Communication</h2>
+          <ul><li><a href="/skills/skills/change-tldr/" aria-current="page">Change TL;DR</a></li><li><a href="/skills/skills/change-explainer/">Change Explainer</a></li><li><a href="/skills/skills/eli5/">ELI5</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Health</h2>
+          <ul><li><a href="/skills/skills/medical-assistant/">Medical Assistant</a></li></ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+    <button class="nav-scrim" type="button" aria-label="Close skill navigation" hidden></button>
+    <main id="main" class="doc-main">
+      <article>
+        <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Code Communication<span aria-hidden="true">/</span>Change TL;DR</p>
+          <h1>Change TL;DR</h1>
+          <p class="doc-lede">Give a brief, evidence-backed summary of an engineering change.</p>
+        </header>
+        <div class="prose"><p>Write a plain-language TL;DR that lets a reviewer who has not read the code know what changed in behavior, why, and what it means for them next. The reader is busy, knows the product, and does not know the code.</p>
+<p>Select this skill when the subject is an engineering change. A request to summarize an article or other non-change material stays an ordinary summary. For an explicit ELI5 request, <code>eli5</code> owns the final presentation; for a detailed investigation, use <code>change-explainer</code> when available.</p>
+<p><strong>Evidence boundary:</strong> with partial code, omit <strong>Unchanged</strong> unless the supplied evidence establishes the specific behavior. A small diff is not evidence that everything else is unchanged. Keep benefits conditional and the answer limited to the requested change, without unrelated workflow or model-selection advice.</p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>
+<p><strong>Pin the target</strong> from the user's request:</p>
+<ul>
+<li>PR / merge request number or URL: the PR, its diff, and its linked issue.</li>
+<li>Issue number or URL: the issue and every PR linked to it. This is a chain summary, so cover each PR in order and end with the state of the whole chain.</li>
+<li>Single commit: inspect <code>git show &lt;sha&gt;</code> for that commit's patch, not everything since it. For a merge commit, establish which parent is the baseline before explaining the patch.</li>
+<li>Explicit range or release endpoints: preserve the user's endpoints. Use <code>git diff A B</code> for <code>A..B</code>; use <code>git diff A...B</code> only for an explicitly requested merge-base comparison. Inspect the corresponding commit history for context.</li>
+<li>Branch: identify the intended base and use <code>git diff &lt;base&gt;...&lt;branch&gt;</code> from their merge-base; name both refs and resolved revisions. Ask if the base is ambiguous.</li>
+<li>Session work: separate committed changes, staged changes (<code>git diff --cached</code>), unstaged changes (<code>git diff</code>), and relevant untracked files. Attribute session work from conversation evidence instead of claiming every branch change or pre-existing local edit.</li>
+</ul>
+<p>Fetch PRs and issues with the forge's CLI or API (<code>gh</code>, <code>glab</code>, or whatever the repository host uses). Record each linked change's status so open proposals are not described as shipped. Done when you can name the exact diff and revision or working-tree state you are explaining.</p>
+</li>
+<li>
+<p><strong>Read the evidence, diff first.</strong> Read enough surrounding code to establish the consequence. Use descriptions and linked issues for intent, not proof of implementation. Reuse evidence only when it matches the target revision and relevant working-tree state. Done when every material behavior claim has a source, or is explicitly marked unknown because evidence is unavailable.</p>
+<p>Classify verification separately:</p>
+<ul>
+<li><strong>Verified:</strong> inspected output or CI evidence tied to the target revision or tested working-tree state; name the command/check and its result. Source code or an unexecuted test establishes intent or coverage, not a passing run.</li>
+<li><strong>Reported:</strong> a result or test count asserted by an author without inspected run evidence; attribute the source.</li>
+<li><strong>Not verified:</strong> missing, stale, or mismatched run evidence; state the gap. A reported pass can coexist with an unverified current revision.</li>
+</ul>
+<p>Call a failure <strong>pre-existing</strong> only with comparable baseline output or a historical run demonstrating the same failure. Otherwise say its origin is unknown. When code or forge access is unavailable, explain only the supplied evidence, distinguish reported intent from established behavior, and name what is needed to resolve the gap.</p>
+</li>
+<li>
+<p><strong>Find the story.</strong> Sort what you found into these buckets, and drop the empty ones:</p>
+<ul>
+<li><strong>Before → now:</strong> each change as a caller or user would notice it. Put the most important one first. A retry or longer timeout creates another opportunity to succeed, not guaranteed success.</li>
+<li><strong>Guarantees:</strong> edge cases the change now handles, each as <em>never / only / always</em> plus its consequence.</li>
+<li><strong>Unchanged:</strong> nearby behavior established as unchanged by inspected code, not a blanket reassurance about unseen paths.</li>
+<li><strong>Bugs found:</strong> the symptom a user would have seen.</li>
+<li><strong>Your call:</strong> actions the human must take, such as rollout order, migration, re-login, release, or a decision left open.</li>
+<li><strong>What's left:</strong> the next ticket or PR and what remains out of scope.</li>
+</ul>
+</li>
+<li>
+<p><strong>Write it</strong> in the shape below.</p>
+</li>
+<li>
+<p><strong>Check it.</strong> Every factual claim traces to evidence, with author reports attributed and uncertainty preserved. Numbers are exact when supported; omit unavailable counts. Each code identifier is one the reader already uses: a tool or command name, error code, endpoint, environment variable, or setting. Rewrite everything else as what it does. Done when a reviewer could predict the established behavior and recognize the limits of the evidence from the TL;DR alone.</p>
+</li>
+<li>
+<p><strong>Deliver</strong> it as your reply. If the user asks you to post it as a PR or issue comment, show the final text and post only after explicit confirmation.</p>
+</li>
+</ol>
+<h2 id="shape">Shape</h2>
+<pre><code>**&lt;target and observed status&gt; — &lt;source link, when available&gt;.**
+
+TL;DR: &lt;before → now → why it matters → guarantees → unchanged. 3–7 sentences for a single change; up to three short paragraphs for a chain or release.&gt;
+
+&lt;Optional heads-up, only when the reader must act or would otherwise be surprised: &quot;Before you ship: …&quot; or &quot;Two things the docs now say out loud: …&quot; as 1–3 bullets.&gt;
+
+&lt;Verified: inspected check/output + revision/state + supported results. Reported: attributed claims. Not verified: missing or stale evidence. Include only applicable labels.&gt;
+
+&lt;Where this leaves things: next / remaining / &quot;that call is yours&quot;.&gt;
+</code></pre>
+<p>Use a commit, range, or session label when there is no PR. Claim merge readiness only when current checks, reviews, and merge requirements support it; otherwise state the observed status. Respect an explicit user length limit instead of forcing every template field.</p>
+<h2 id="voice">Voice</h2>
+<ul>
+<li><strong>Before/now contrast</strong> carries the explanation: &quot;the old code deleted that login outright… now it writes down 'this exact login was refused'.&quot;</li>
+<li><strong>Concrete nouns the user sees:</strong> browser tab, login, &quot;unauthorized&quot;, a full minute of waiting. Use these instead of HTTP status codes, class names, or function names.</li>
+<li><strong>Components talk.</strong> Put a system's message in quotes: tell the credential server &quot;that exact version worked&quot;; the server just says &quot;please upgrade&quot;.</li>
+<li><strong>Consequence clauses</strong> answer &quot;so what&quot;: &quot;because the rejection is written down first, the refusal is never lost.&quot;</li>
+<li><strong>Honest scope:</strong> say what was deliberately not done, which failures were already there, and what still needs a human.</li>
+<li><strong>Plain prose:</strong> use the bold lead line and at most a few bullets. Headings and file lists belong in a detailed explanation, not this TL;DR.</li>
+</ul>
+<h2 id="example">Example</h2>
+<p>Illustrative fixture: the code and inspected CI for PR #187 at <code>api-head</code> establish the behavior below; its build passed and test output reports 162 files and 2,617 passing tests. Current reviews and merge requirements are satisfied. These are example facts, not results for the user's repository.</p>
+<blockquote>
+<p><strong>#181 is ready for merge — PR #187.</strong></p>
+<p>TL;DR: when the instance says &quot;unauthorized&quot; to a call, the old code deleted that instance's saved login outright—throwing away the evidence that the instance had rejected it. Now it writes down &quot;this exact login was refused&quot; and only then opens the browser once to get a new login and retry the call. Because the rejection is written down first, the refusal is never lost; if the credential server cannot record it, the action fails instead of pretending the bad login is gone. The same login at the same version stays rejected; a genuinely new version is used without opening a browser tab. Successful logins are unchanged.</p>
+<p>Verified: PR #187 CI at <code>api-head</code> passed its build and full suite, <strong>162 files, 2,617 tests</strong>. Next in the chain: #182 handles a second rejection without opening another browser tab, followed by #183 and #184.</p>
+</blockquote>
+<p>For chain-closing and release-readiness examples with bugs found, heads-up bullets, and human decisions, read <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/change-tldr/references/examples.md">references/examples.md</a>.</p>
+</div>
+        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+          <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/change-tldr/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
+        </section>
+        <nav class="page-turn" aria-label="Adjacent skills">
+          <a href="/skills/skills/software-critique/" rel="prev"><span>← Previous</span><strong>Software Critique</strong></a>
+          <a href="/skills/skills/change-explainer/" rel="next"><span>Next →</span><strong>Change Explainer</strong></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

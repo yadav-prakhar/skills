@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Change Explainer — Agent Skills</title>
+  <meta name="description" content="Investigate and explain an engineering change from evidence: actual behavior, intent versus reality, blast radius, guarantees, risks, verification, and remaining work. Use for a detailed explanation o">
+  <link rel="canonical" href="https://yadav-prakhar.github.io/skills/skills/change-explainer/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Change Explainer — Agent Skills">
+  <meta property="og:description" content="Investigate and explain an engineering change from evidence: actual behavior, intent versus reality, blast radius, guarantees, risks, verification, and remaining work. Use for a detailed explanation o">
+  <meta property="og:url" content="https://yadav-prakhar.github.io/skills/skills/change-explainer/">
+  <link rel="stylesheet" href="/skills/assets/style.css">
+  <script>try{let t=localStorage.getItem('skills-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  <script src="/skills/assets/site.js" defer></script>
+</head>
+<body class="skill-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="/skills/" aria-label="Skills home">SKILLS<span class="wordmark-period">.</span></a>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-label="Open skill navigation" aria-expanded="false" aria-controls="skill-sidebar"><span></span><span></span></button>
+        <a class="github-link" href="https://github.com/yadav-prakhar/skills">GitHub <span aria-hidden="true">↗</span></a>
+        <label class="theme-control"><span class="visually-hidden">Color theme</span><select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <aside class="sidebar" id="skill-sidebar" aria-label="Skill navigation">
+    <div class="sidebar-inner"><a class="sidebar-home" href="/skills/">All skills <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Browse skills">
+        <div class="nav-group"><h2>Software Critique</h2>
+          <ul><li><a href="/skills/skills/software-critique/">Software Critique</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Code Communication</h2>
+          <ul><li><a href="/skills/skills/change-tldr/">Change TL;DR</a></li><li><a href="/skills/skills/change-explainer/" aria-current="page">Change Explainer</a></li><li><a href="/skills/skills/eli5/">ELI5</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Health</h2>
+          <ul><li><a href="/skills/skills/medical-assistant/">Medical Assistant</a></li></ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+    <button class="nav-scrim" type="button" aria-label="Close skill navigation" hidden></button>
+    <main id="main" class="doc-main">
+      <article>
+        <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Code Communication<span aria-hidden="true">/</span>Change Explainer</p>
+          <h1>Change Explainer</h1>
+          <p class="doc-lede">Investigate and explain an engineering change from evidence: actual behavior, intent versus reality, blast radius, guarantees, risks, verification, and remaining work.</p>
+        </header>
+        <div class="prose"><p>Explain what an engineering change actually did and what will happen because of it. The reader knows the product but may not know the code. Treat this as an investigation: repository evidence decides what changed; prose from issues and PRs explains what was intended.</p>
+<p><strong>Evidence boundary:</strong> with partial code, omit <strong>Unchanged</strong> and &quot;no action required&quot; unless the inspected paths establish them. More time or another attempt can permit success only if the operation actually completes successfully; it does not make errors, hangs, or failed retries succeed. Audit every sentence for these conditions, including the blast-radius section, and deliver only the requested explanation or evidence map.</p>
+<h2 id="composition">Composition</h2>
+<p>When another skill requests investigation only, perform steps 1–5 and return the evidence map to that caller: target revisions/state, before → now, sources, intent gaps, blast radius, verification labels, and remaining uncertainty. This is an intermediate result, not a second user-facing answer. The caller owns audience, length, formatting, and final delivery. Reuse an existing evidence map when its revisions and relevant working-tree state still match.</p>
+<h2 id="evidence-hierarchy">Evidence hierarchy</h2>
+<p>Use sources in this order and keep their roles separate:</p>
+<ol>
+<li><strong>Diff and surrounding code:</strong> what behavior changed. Trace callers, data flow, configuration, and failure paths far enough to establish the externally visible consequence.</li>
+<li><strong>Tests, CI, and runtime output:</strong> what was exercised and what passed or failed.</li>
+<li><strong>Issue, specification, and PR description:</strong> why the change was requested and what it intended to accomplish.</li>
+<li><strong>Commit messages and discussion:</strong> historical context, not proof of current behavior.</li>
+<li><strong>Inference:</strong> a labeled conclusion only when direct evidence cannot settle the point.</li>
+</ol>
+<p>When intent and implementation disagree, report the implementation as reality and call out the gap.</p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>
+<p><strong>Pin the change.</strong> Resolve the target without silently expanding it:</p>
+<ul>
+<li>PR or issue chain: inspect each linked diff and its base/head revisions; order the chain and record which changes are proposed, merged, or released.</li>
+<li>Single commit: inspect <code>git show &lt;sha&gt;</code> for that commit's patch, not everything since it. For a merge commit, establish which parent is the baseline before explaining the patch.</li>
+<li>Explicit range or release endpoints: preserve the user's endpoints. Use <code>git diff A B</code> for <code>A..B</code>; use <code>git diff A...B</code> only for an explicitly requested merge-base comparison. Inspect the corresponding commit history for context.</li>
+<li>Branch: identify the intended base and use <code>git diff &lt;base&gt;...&lt;branch&gt;</code> from their merge-base; name both refs and resolved revisions. Ask if the base is ambiguous.</li>
+<li>Session work: separate committed changes, staged changes (<code>git diff --cached</code>), unstaged changes (<code>git diff</code>), and relevant untracked files. Attribute session work from conversation evidence instead of claiming every branch change or pre-existing local edit.</li>
+</ul>
+<p>Done when the exact set of diffs and revisions or working-tree state is named.</p>
+</li>
+<li>
+<p><strong>Build the evidence map.</strong> Read each diff, then enough surrounding code to determine behavior before and after. Record the evidence source for every material claim. Collect issue or PR intent separately. Scope conclusions to the inspected paths: a test excerpt does not establish the total test count or the absence of other tests, and a setting change alone does not establish every caller's behavior. When code or forge access is unavailable, explain only the supplied evidence, label reported intent and unknown behavior, and name what evidence would resolve the gap. Done when material claims have sources or explicit evidence limits; missing access is not a reason to invent behavior.</p>
+</li>
+<li>
+<p><strong>Compare intent with reality.</strong> Write down:</p>
+<ul>
+<li><strong>Intended:</strong> the outcome requested by the issue, spec, or PR.</li>
+<li><strong>Actually changed:</strong> the behavior established by the code.</li>
+<li><strong>Gap:</strong> anything missing, broader, narrower, or different.</li>
+</ul>
+<p>Include an <strong>Intent vs reality</strong> section only when the gap is meaningful. Agreement needs no ceremonial section.</p>
+</li>
+<li>
+<p><strong>Map behavior and blast radius.</strong> Identify:</p>
+<ul>
+<li><strong>Before → now:</strong> observable changes, most important first. A retry or longer timeout creates another opportunity to succeed, not guaranteed success; retain the conditions and remaining failure paths.</li>
+<li><strong>Affected:</strong> users, callers, data, interfaces, configurations, and failure paths that can change.</li>
+<li><strong>Unchanged:</strong> nearby behavior a reviewer might reasonably worry about.</li>
+<li><strong>Compatibility and action:</strong> migrations, rollout order, re-authentication, API changes, release coordination, or no action required.</li>
+<li><strong>Guarantees:</strong> only statements proved by control flow and tests; phrase each as <em>never / only / always</em> plus the consequence.</li>
+<li><strong>Risks or surprises:</strong> behavior that is intentional but could catch a reviewer or operator off guard.</li>
+</ul>
+</li>
+<li>
+<p><strong>Grade verification honestly.</strong> Separate tests, build, lint, type checks, CI, and manual/runtime evidence using these labels:</p>
+<ul>
+<li><strong>Verified:</strong> inspected output or CI evidence tied to the target revision or tested working-tree state; name the command/check and its result. An unexecuted test is coverage evidence, not a passing run.</li>
+<li><strong>Reported:</strong> a result or count asserted in a PR, issue, or conversation without inspected run evidence; attribute the source.</li>
+<li><strong>Not verified:</strong> missing, stale, or mismatched run evidence, and behavior that was not exercised; explain why each material gap matters. A reported pass can coexist with an unverified current revision.</li>
+</ul>
+<p>Passing tests establish only what they exercise. Use exact counts only when the source supplies them. Call a failure <strong>pre-existing</strong> only with comparable baseline output or a historical run demonstrating the same failure; otherwise its origin is unknown.</p>
+</li>
+<li>
+<p><strong>Write progressively.</strong> Start with the answer a reader can consume in one breath, follow with a 30-second behavioral explanation, then provide detail for readers who continue. Cite material behavior claims, intent/implementation gaps, and verification results with concise file/line references, revision-aware source links, or check/output references. Cite supplied excerpts by their labels when links are unavailable. Omit empty sections rather than filling a template mechanically.</p>
+</li>
+<li>
+<p><strong>Audit the result.</strong> Check every factual statement against its evidence, including the opening and claims of unchanged behavior. Describe open-PR code as proposed behavior at the inspected revision, not a shipped feature. Use exact numbers and statuses. Distinguish fact, reported intent, and inference. Replace internal identifiers with user-visible behavior unless the identifier is itself part of the interface. Done when the reader can predict the new behavior, its limits, and the confidence behind the explanation.</p>
+</li>
+<li>
+<p><strong>Deliver</strong> the explanation as your reply. If the user asks you to post it as a PR or issue comment, show the final text and post only after explicit confirmation.</p>
+</li>
+</ol>
+<h2 id="output-shape">Output shape</h2>
+<pre><code class="language-markdown">**TL;DR:** &lt;one or two sentences: before → now → why it matters.&gt;
+
+## What changed
+
+- **Before → now:** &lt;observable behavior and consequence, with source reference.&gt;
+- &lt;additional changes only when material.&gt;
+
+## Intent vs reality
+
+- **Intended:** &lt;stated goal and source.&gt;
+- **Actually changed:** &lt;implementation and code reference.&gt;
+- **Gap:** &lt;difference and consequence, tied to the evidence above.&gt;
+
+## Blast radius
+
+- **Affected:** &lt;who or what can behave differently.&gt;
+- **Unchanged:** &lt;nearby behavior that remains the same.&gt;
+- **Compatibility / action:** &lt;migration, rollout, API impact, or &quot;none&quot;.&gt;
+
+## Guarantees
+
+- **Never / Only / Always:** &lt;proved boundary and consequence.&gt;
+
+## Verification
+
+- **Verified:** &lt;inspected check/output reference, target revision/state, and supported results.&gt;
+- **Reported:** &lt;attributed result not independently checked.&gt;
+- **Not verified:** &lt;material gaps and why they matter.&gt;
+
+## Heads-up
+
+&lt;Only risks, surprises, or required human decisions.&gt;
+
+## What remains
+
+&lt;Out-of-scope work, next PR or ticket, or &quot;Nothing identified&quot;.&gt;
+</code></pre>
+<h2 id="voice">Voice</h2>
+<ul>
+<li>Lead with behavior, not implementation vocabulary.</li>
+<li>Use concrete nouns and consequence clauses: what the person sees, what the system does next, and why that matters.</li>
+<li>Prefer one precise technical term with a plain definition over a vague substitute.</li>
+<li>State boundaries directly. &quot;Successful logins are unchanged&quot; is more useful than &quot;minimal impact.&quot;</li>
+<li>Keep the TL;DR independent: a reader who stops there still gets the main change and consequence.</li>
+<li>Use headings as progressive disclosure, not as a checklist that forces empty prose.</li>
+</ul>
+<p>For a worked intent/implementation gap with reported tests and missing evidence, read <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/change-explainer/references/examples.md">references/examples.md</a>.</p>
+</div>
+        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+          <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/change-explainer/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
+        </section>
+        <nav class="page-turn" aria-label="Adjacent skills">
+          <a href="/skills/skills/change-tldr/" rel="prev"><span>← Previous</span><strong>Change TL;DR</strong></a>
+          <a href="/skills/skills/eli5/" rel="next"><span>Next →</span><strong>ELI5</strong></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

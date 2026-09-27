@@ -60,6 +60,21 @@ means capture succeeded, not that model behavior passed. These are prompt-level
 smoke tests with supplied evidence, not tests of a host's skill discovery or real
 Git/forge tool use. Use `--case <id>` to capture selected cases.
 
+## Website
+
+The documentation site is built from `skills/*/SKILL.md` and the category order in
+`skills.sh.json`. Changes to a skill's content or metadata require no website edits:
+run `npm ci && npm run build` to regenerate the committed static pages in `docs/`.
+New skills not yet listed in a grouping appear under "More skills" until assigned.
+Run `npm run test:site` to verify generated routes and navigation.
+
+The website is published from the **`docs` branch**, **`/docs` folder** using
+GitHub Pages' "Deploy from a branch" source. The output includes `.nojekyll` and
+uses the `/skills/` project path. Merge website contributions into `docs`, then
+configure that source in the repository's Settings → Pages. When bringing new
+skills from `master` into `docs`, rebuild the website on the contributing branch
+and commit the updated `docs/` output with the skill changes.
+
 ## Hermes backup
 
 [`hermes-backup/`](hermes-backup/) is a backup of a Hermes default-profile skills directory,

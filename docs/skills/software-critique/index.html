@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Software Critique — Agent Skills</title>
+  <meta name="description" content="Use when asked to review/critique a product or codebase.">
+  <link rel="canonical" href="https://yadav-prakhar.github.io/skills/skills/software-critique/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Software Critique — Agent Skills">
+  <meta property="og:description" content="Use when asked to review/critique a product or codebase.">
+  <meta property="og:url" content="https://yadav-prakhar.github.io/skills/skills/software-critique/">
+  <link rel="stylesheet" href="/skills/assets/style.css">
+  <script>try{let t=localStorage.getItem('skills-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  <script src="/skills/assets/site.js" defer></script>
+</head>
+<body class="skill-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="/skills/" aria-label="Skills home">SKILLS<span class="wordmark-period">.</span></a>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-label="Open skill navigation" aria-expanded="false" aria-controls="skill-sidebar"><span></span><span></span></button>
+        <a class="github-link" href="https://github.com/yadav-prakhar/skills">GitHub <span aria-hidden="true">↗</span></a>
+        <label class="theme-control"><span class="visually-hidden">Color theme</span><select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <aside class="sidebar" id="skill-sidebar" aria-label="Skill navigation">
+    <div class="sidebar-inner"><a class="sidebar-home" href="/skills/">All skills <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Browse skills">
+        <div class="nav-group"><h2>Software Critique</h2>
+          <ul><li><a href="/skills/skills/software-critique/" aria-current="page">Software Critique</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Code Communication</h2>
+          <ul><li><a href="/skills/skills/change-tldr/">Change TL;DR</a></li><li><a href="/skills/skills/change-explainer/">Change Explainer</a></li><li><a href="/skills/skills/eli5/">ELI5</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Health</h2>
+          <ul><li><a href="/skills/skills/medical-assistant/">Medical Assistant</a></li></ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+    <button class="nav-scrim" type="button" aria-label="Close skill navigation" hidden></button>
+    <main id="main" class="doc-main">
+      <article>
+        <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Software Critique<span aria-hidden="true">/</span>Software Critique</p>
+          <h1>Software Critique</h1>
+          <p class="doc-lede">Critique real software the way a panel of staff engineer + PM + UX lead would. Non-negotiable rules:</p>
+        </header>
+        <div class="prose"><ol>
+<li><strong>Evidence before judgment.</strong> Read the source, run the tool, exercise the flows. A finding without <code>file:line</code>, command output, or a reproduced interaction is an opinion — label it or drop it.</li>
+<li><strong>Verdict up front.</strong> Open the report with a one-paragraph grade and one-line summary. Never bury it.</li>
+<li><strong>Critique the system, not the author.</strong> Judge decisions against the constraints the team likely faced; say when a choice was reasonable.</li>
+<li><strong>Severity = user/operational impact</strong>, not aesthetic preference or personal style.</li>
+<li><strong>Trace consequences, don't list defects.</strong> Every Critical/High finding must answer &quot;and then what happens?&quot; — the future cost, not the present ugliness (e.g. not &quot;hardcoded secret&quot; but &quot;rotating it requires a coordinated release across N repos and every user's machine&quot;). A finding without a projected consequence is a lint warning.</li>
+<li><strong>End with the compression.</strong> Close the report with one sentence that carries its whole shape: strength acknowledged + systemic cost named + root cause indicted. A review that can't survive as one sentence is a filing cabinet, not an argument.</li>
+</ol>
+<h2 id="workflow">Workflow</h2>
+<ol>
+<li><strong>Frame</strong> — from the request, decide: what is this artifact <em>for</em> (job-to-be-done)? Who uses it? What does the requester want out of the review (adopt/rebuild/fix/hire-signal)? If ambiguous, one clarify call, max.</li>
+<li><strong>Gather evidence</strong> (read-only, batch tool calls):
+<ul>
+<li>Read all source end-to-end; note sizes and structure.</li>
+<li>Run it if runnable: happy path, one failure path, <code>--help</code>/exit codes.</li>
+<li>Check the ecosystem: deps, releases, docs, tests, CI, duplicates of the same logic.</li>
+<li>Prefer multiple medium tool batches over one giant call; append extractions to workspace files if large.</li>
+</ul>
+</li>
+<li><strong>Apply the lenses</strong> (see references/lenses.md for per-lens checklists):
+<ul>
+<li><strong>Product</strong> — does it deliver the outcome, not the capability? Time-to-value, lifetime verbs (doctor/status/repair), onboarding, failure-to-support ratio.</li>
+<li><strong>Architecture</strong> — boundaries, duplication, coupling, one-implementation-per-behavior, blast radius of change, release engineering.</li>
+<li><strong>Engineering quality</strong> — correctness, error handling, data-loss paths, atomicity, secrets, dead code, tests, exit codes, composability.</li>
+<li><strong>UX</strong> — expectation-setting, defaults that steer honestly, silent behavior, what the user's <em>last</em> experience is (final output often the worst screen), error evidence shown to users.</li>
+<li><strong>Consistency &amp; operations</strong> — drift between parallel implementations, config/state handling, upgrade/uninstall story, documentation truthfulness.</li>
+</ul>
+</li>
+<li><strong>Synthesize</strong> — rank by severity (below). Separate systemic patterns (appear 3+ places → process/architecture root cause) from one-offs. List what's working — redesigns that ignore strengths cause regressions.</li>
+<li><strong>Report</strong> in the format below. End with a prioritized fix plan (Now / Next / Later) and offer the cheapest highest-leverage first move.</li>
+</ol>
+<h2 id="severity-scale">Severity scale</h2>
+<ul>
+<li><strong>Critical</strong> — data loss, security hole, secret exposure, silent corruption, or the tool's core promise broken.</li>
+<li><strong>High</strong> — will bite real users soon; support-ticket generator; structural debt compounding at release cadence.</li>
+<li><strong>Medium</strong> — friction, inconsistency, amnesia (re-asking for info the tool owns), missing feedback loops.</li>
+<li><strong>Low</strong> — polish, dead code, style, exit codes, naming.</li>
+</ul>
+<h2 id="report-format">Report format</h2>
+<pre><code># Verdict (grade + one-line summary)
+## 1. Critical (should never have shipped)
+## 2. Engineering  (findings w/ file:line evidence)
+## 3. Product &amp; management
+## 4. UX
+## 5. What's working (keep these)
+## How it should have been built (target design, not a rewrite fantasy)
+## Fix plan: Now / Next / Later
+## The compression (one closing sentence: strength + systemic cost + root cause)
+</code></pre>
+<p>Calibrate length to the ask: a one-line question gets a one-line answer; a full review earns the full report.</p>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<ul>
+<li>Aesthetic or style opinions dressed as findings.</li>
+<li>Critiquing code you never read or a flow you never ran.</li>
+<li>&quot;Rewrite it in X&quot; as the conclusion — target designs must be reachable from where the code is.</li>
+<li>Listing flaws without a prioritized, effort-aware fix path.</li>
+<li>Defect lists that never project forward (&quot;and then what happens?&quot;) — present-tense ugliness without a future cost is a lint warning, not a finding.</li>
+<li>Reports with no closing one-liner — if it can't be compressed to one sentence, the argument isn't formed yet.</li>
+<li>Omitting strengths — a critique with no 'what's working' is not credible.</li>
+</ul>
+<h2 id="deeper-checklists">Deeper checklists</h2>
+<p>Per-lens detailed checklists and the evidence-gathering playbook: see <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/software-critique/references/lenses.md">references/lenses.md</a>.</p>
+</div>
+        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+          <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/software-critique/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
+        </section>
+        <nav class="page-turn" aria-label="Adjacent skills">
+          <span></span>
+          <a href="/skills/skills/change-tldr/" rel="next"><span>Next →</span><strong>Change TL;DR</strong></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

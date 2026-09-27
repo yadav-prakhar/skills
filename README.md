@@ -62,6 +62,8 @@ Git/forge tool use. Use `--case <id>` to capture selected cases.
 
 ## Website
 
+For the site's visual language and UI patterns, see [`site/DESIGN.md`](site/DESIGN.md).
+
 The documentation site is built from `skills/*/SKILL.md` and the category order in
 `skills.sh.json`. Changes to a skill's content or metadata require no website edits:
 run `npm ci && npm run build` to regenerate the committed static pages in `docs/`.

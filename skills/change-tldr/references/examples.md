@@ -1,6 +1,8 @@
 # Longer change TL;DR examples
 
-Both examples come from one multi-PR credential-lifecycle chain spanning an API server and a companion browser extension. Use them when the TL;DR closes a chain, prepares a release, or reports a bug found during the work.
+The first two examples come from one multi-PR credential-lifecycle chain spanning an API server and a companion browser extension. Use them when the TL;DR closes a chain, prepares a release, or reports a bug found during the work; the final example covers reported tests without run evidence.
+
+Treat these as illustrative fixtures, not evidence about the user's repository. The first two supply the relevant code, inspected build/test output at the named revision, and current review/merge status. The extension's `legacy-ui` failure also appears in inspected baseline output under the same environment, which supports calling that specific failure pre-existing.
 
 ## Chain closer: verification found a real bug, and the human must act
 
@@ -15,7 +17,7 @@ Both examples come from one multi-PR credential-lifecycle chain spanning an API 
 > - The pinned `_internal` tools are **not** part of the new system. They work as before, but they do not record success evidence, do not auto-recover a rejection, and `list_instances` continues to show them as "stored but never tried".
 > - Startup `basic` / `token` / `oauth` logins are unchanged.
 >
-> Verified: build clean, 2,757 tests green, extension green apart from one pre-existing unrelated failure. No release was tagged or published—that call is yours, and the extension ships first.
+> Verified: API CI at `api-chain-head` passed its build and 2,757 tests; extension CI at `extension-chain-head` passed except for `legacy-ui`, also failing in comparable baseline output. No release was tagged or published—that call is yours, and the extension ships first.
 
 ## Removal: something is deleted, and the reader needs to know nothing else broke
 
@@ -25,4 +27,12 @@ Both examples come from one multi-PR credential-lifecycle chain spanning an API 
 >
 > Nothing changes for the server: it already asked only for the all-instances report, one instance's secrets, and a way to record a result, all of which remain intact. The frozen contract file is byte-identical, so this is a one-sided upgrade. The old combined endpoint answers "gone" and never returns credentials. A login the instance rejects is recorded as a visible note instead of being deleted, so a refusal is never lost.
 >
-> Verification: the extension compiles and its full test suite is green apart from one pre-existing unrelated failure. New tests cover no startup sync, no storage listener, no timestamps, and no secrets leaking through the old endpoint. Only #184, cross-repository verification and release readiness, remains.
+> Verified: extension CI at `extension-removal-head` passed its build and full suite except for the baseline-confirmed `legacy-ui` failure. Its passing tests cover no startup sync, no storage listener, no timestamps, and no secrets leaking through the old endpoint. Only #184, cross-repository verification and release readiness, remains.
+
+## Reported tests without run evidence
+
+Fixture: PR #24 is open at `retry-head`. The supplied diff and surrounding code show one retry for a timeout. Its author says "all 42 tests pass," but no logs or CI results are available.
+
+> **PR #24 is open at `retry-head`.**
+>
+> TL;DR: a timed-out request now gets one retry instead of failing immediately; a second timeout still fails, so this is not unlimited recovery. Reported: the PR author says all 42 tests pass. Not verified: no run output or CI evidence is available for this revision, so the current test result and merge readiness remain unknown.

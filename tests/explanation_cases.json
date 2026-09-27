@@ -1,0 +1,141 @@
+[
+  {
+    "id": "concept-index",
+    "skills": ["eli5", "change-tldr", "change-explainer"],
+    "request": "ELI5 database indexes.",
+    "evidence": "This is a general concept question, not a change to a particular repository.",
+    "criteria": [
+      "Explain how an index helps find rows without scanning every row.",
+      "Include storage or write-maintenance costs; avoid claiming every query becomes faster.",
+      "Do not invent numerical speedups or present one index implementation as universal.",
+      "Do not request a PR or emit a change-status or test-verification report."
+    ]
+  },
+  {
+    "id": "three-sentence-change",
+    "skills": ["eli5", "change-tldr", "change-explainer"],
+    "request": "ELI5 this PR in exactly three sentences.",
+    "evidence": "PR #24 is open at retry-head. Supplied diff and surrounding src/client.py:8-18 at retry-head show that a timeout now triggers exactly one more attempt; previously the first timeout propagated immediately. A second timeout still propagates. The PR author says 'all 42 tests pass'. There are no logs or CI results.",
+    "criteria": [
+      "Return exactly three sentences and one final answer, without a separate investigation report.",
+      "Explain before versus now and the one-retry limit.",
+      "Attribute 42 passing tests to the author and make clear the result was not verified."
+    ]
+  },
+  {
+    "id": "article-summary",
+    "skills": ["eli5", "change-tldr", "change-explainer"],
+    "request": "TL;DR this article.",
+    "evidence": "Article: The town library is extending Saturday opening hours from noon to 5 pm for a three-month trial. Volunteers will staff the extra hours. The council will decide whether to continue after reviewing attendance.",
+    "criteria": [
+      "Summarize the library trial and the attendance-based decision.",
+      "Do not ask for a diff, PR, repository, or test output.",
+      "Do not present engineering-change status or verification sections."
+    ]
+  },
+  {
+    "id": "reported-tests",
+    "skills": ["change-tldr"],
+    "request": "Give me a quick change summary of PR #24.",
+    "evidence": "PR #24 is open at retry-head. The supplied diff and surrounding code show one retry after a timeout and propagation of a second timeout. The PR author says 'all 42 tests pass'. No execution logs, CI results, approvals, or merge-requirement status are available.",
+    "criteria": [
+      "Label the test result Reported and attribute it to the PR author.",
+      "State Not verified for current execution evidence.",
+      "Do not claim the PR is ready to merge or tests are independently verified."
+    ]
+  },
+  {
+    "id": "intent-gap",
+    "skills": ["change-explainer"],
+    "request": "Explain PR #24 in detail, including whether it delivers what was promised.",
+    "evidence": "PR #24 is open at retry-head, compared with retry-base. PR description: 'Retry timeouts and rate-limit responses; all 42 tests pass.' src/client.py:8-14 at retry-base calls send_once() once and propagates errors. src/client.py:8-18 at retry-head catches only TimeoutError, retries send_once() once, and propagates all errors from that retry; RateLimitError is not caught. tests/test_client.py:12-28 at retry-head contains tests for a successful retry and a second timeout. No logs or CI are available.",
+    "criteria": [
+      "Identify rate-limit recovery as promised but not implemented.",
+      "Cite the PR description and supplied code path/lines for the gap and behavior.",
+      "Treat test source as coverage evidence, not proof of a successful run.",
+      "Label the author's 42-pass assertion Reported and execution Not verified.",
+      "Do not promise every timed-out request will succeed or describe an open PR as shipped.",
+      "Limit test-coverage conclusions to the supplied excerpt rather than asserting no other tests exist."
+    ]
+  },
+  {
+    "id": "standalone-eli5",
+    "skills": ["eli5"],
+    "request": "ELI5 this change in exactly three sentences.",
+    "evidence": "Only eli5 is available. A supplied diff at retry-head and surrounding code show one retry after a timeout, replacing immediate failure; a second timeout still fails. Inspected test_client output for retry-head in the supplied clean working-tree state shows 2 passed. No other test run is supplied.",
+    "criteria": [
+      "Explain the supplied change without requiring installation or invocation of another skill.",
+      "Return exactly three sentences with the one-retry limit.",
+      "Scope verified evidence to the two supplied tests and retry-head, not the full suite."
+    ]
+  },
+  {
+    "id": "unavailable-repository",
+    "skills": ["eli5"],
+    "request": "ELI5 how this PR fixes lost updates.",
+    "evidence": "The repository and forge cannot be accessed. Only the PR description is supplied: 'Add record-version checks before saving an edit so outdated edits cannot overwrite newer work.' No diff, code, tests, or output are supplied.",
+    "criteria": [
+      "Explain the intended version-check mechanism using attributed language.",
+      "Keep the opening conditional or attributed; do not rely on a final disclaimer to correct a factual-sounding opening.",
+      "Explicitly state that implementation and tests cannot be confirmed.",
+      "Identify the diff/code and test evidence as needed follow-up without inventing details."
+    ]
+  },
+  {
+    "id": "single-commit",
+    "skills": ["change-tldr"],
+    "request": "I want a TL;DR of commit abc1234 only; which comparison will you inspect?",
+    "evidence": "abc1234 is an ordinary non-merge commit behind the current branch tip. No patch is supplied and tools are unavailable in this fixture.",
+    "criteria": [
+      "Choose git show abc1234 or the equivalent diff from its parent to abc1234.",
+      "Do not compare abc1234 to HEAD or summarize later commits.",
+      "Do not claim to have inspected a patch or invent behavior."
+    ]
+  },
+  {
+    "id": "explicit-range",
+    "skills": ["change-explainer"],
+    "request": "Explain the net change from snapshot A to snapshot B (A..B). First tell me which diff you need.",
+    "evidence": "A and B have diverged from a common ancestor. The user explicitly wants their endpoint difference. No diff is supplied.",
+    "criteria": [
+      "Choose git diff A B or git diff A..B.",
+      "Do not replace the endpoint comparison with git diff A...B.",
+      "Do not claim to know the behavior before inspecting the diff."
+    ]
+  },
+  {
+    "id": "stale-ci",
+    "skills": ["change-tldr"],
+    "request": "Give me a quick summary of PR #30 and its verification.",
+    "evidence": "PR #30 is open at new-head. Supplied code at new-head changes the default timeout from 5 seconds to 10 seconds. Inspected CI run old-run reports 20 passed at old-head, before a later code change created new-head. There is no test evidence for new-head.",
+    "criteria": [
+      "Explain the changed timeout.",
+      "State that new-head is Not verified.",
+      "If mentioning the passing run, label it historical evidence for old-head, not a pass for new-head.",
+      "Scope unchanged-behavior claims to supplied code instead of reassuring about every unseen path."
+    ]
+  },
+  {
+    "id": "unknown-failure-origin",
+    "skills": ["change-explainer"],
+    "request": "Explain the change and verification for PR #31.",
+    "evidence": "PR #31 at head-31 changes a timeout setting from 5 to 10 seconds in config.py:3. Inspected suite output at head-31 reports 19 passed and test_legacy_ui failed. The author calls that failure pre-existing. No comparable baseline or historical failure output is available.",
+    "criteria": [
+      "Report the inspected 19-pass/1-failure result without saying the suite passed.",
+      "Attribute the pre-existing claim to the author and state the failure's origin is unknown.",
+      "Cite config.py:3 and the supplied suite output for the corresponding claims.",
+      "Describe the timeout as more opportunity to succeed, not guaranteed success for all callers."
+    ]
+  },
+  {
+    "id": "investigation-only",
+    "skills": ["change-explainer"],
+    "request": "As the calling eli5 workflow, request investigation only for PR #24; return evidence for my three-sentence final answer.",
+    "evidence": "PR #24 at retry-head adds one retry after TimeoutError in src/client.py:8-18, compared with a single attempt at retry-base. Second errors propagate. The PR description promises exactly one timeout retry. Inspected test_client output for retry-head in a clean working tree shows 2 passed. Idempotency behavior is not supplied.",
+    "criteria": [
+      "Return an intermediate evidence map including target, before/now, source, blast radius, verification, and uncertainty.",
+      "Leave the user-facing three-sentence answer to the caller.",
+      "Do not produce both an evidence map and a final ELI5 report."
+    ]
+  }
+]

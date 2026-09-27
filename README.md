@@ -9,10 +9,10 @@ Custom agent skills, published for install with the [`skills` CLI](https://skill
 npx skills add yadav-prakhar/skills --list
 
 # pick skills by name
-npx skills add yadav-prakhar/skills --skill software-critique --skill eli5
+npx skills add yadav-prakhar/skills --skill eli5 --skill change-tldr --skill change-explainer
 
 # global install for a specific agent, no prompts
-npx skills add yadav-prakhar/skills --skill software-critique -g -a claude-code -y
+npx skills add yadav-prakhar/skills --skill eli5 -g -a claude-code -y
 ```
 
 Skills live under `skills/<name>/SKILL.md` and are declared in
@@ -23,14 +23,16 @@ under **PrakharYadav Skills** in `npx skills list`.
 
 | Skill | What it does |
 | --- | --- |
-| [`software-critique`](skills/software-critique/SKILL.md) | Panel-style critique of a product, codebase, or repo: evidence-backed findings, severity by user impact, verdict up front. |
-| [`medical-assistant`](skills/medical-assistant/SKILL.md) | Evidence-based lab report / biomarker analysis (references the full protocol in `references/master-prompt.md`). |
-| [`eli5`](skills/eli5/SKILL.md) | Plain-language ELI5 TL;DR of a PR, issue chain, commit range, or the agent's own work: before → now, guarantees, what's unchanged, what you must do next. |
+| [`software-critique`](skills/software-critique/SKILL.md) | Panel-style critique of a product, codebase, or repository: evidence-backed findings, severity by user impact, verdict up front. |
+| [`medical-assistant`](skills/medical-assistant/SKILL.md) | Evidence-based lab report and biomarker analysis (references the full protocol in `references/master-prompt.md`). |
+| [`change-tldr`](skills/change-tldr/SKILL.md) | Fast reviewer summary of a PR, issue chain, commit range, or session: before → now, guarantees, unchanged behavior, verification, and next steps. |
+| [`change-explainer`](skills/change-explainer/SKILL.md) | Thorough investigation of an engineering change: evidence hierarchy, intent versus reality, blast radius, risks, verification, and remaining work. |
+| [`eli5`](skills/eli5/SKILL.md) | Audience-adaptive explanation of concepts, code, systems, errors, and changes using the simplest accurate mental model. |
 
 ## Hermes backup
 
 [`hermes-backup/`](hermes-backup/) is a backup of a Hermes default-profile skills directory,
-nested by category (e.g. `hermes-backup/productivity/xlsx/SKILL.md`). It sits outside the
+nested by category (for example, `hermes-backup/productivity/xlsx/SKILL.md`). It sits outside the
 CLI's default scan paths, so it does not show up in `npx skills add yadav-prakhar/skills`.
 Install from it by path:
 

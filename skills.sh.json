@@ -10,9 +10,11 @@
       ]
     },
     {
-      "title": "Code Review",
-      "description": "Plain-language explanations of what a code change did and what happens next.",
+      "title": "Code Communication",
+      "description": "Accurate explanations of engineering changes and complex technical subjects.",
       "skills": [
+        "change-tldr",
+        "change-explainer",
         "eli5"
       ]
     },

@@ -49,6 +49,10 @@
         <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Code Communication<span aria-hidden="true">/</span>Change Explainer</p>
           <h1>Change Explainer</h1>
           <p class="doc-lede">Investigate and explain an engineering change from evidence: actual behavior, intent versus reality, blast radius, guarantees, risks, verification, and remaining work.</p>
+          <div class="install-rail"><p class="install-label">Install</p>
+        <div class="install-command"><code>npx skills add yadav-prakhar/skills --skill change-explainer</code><button class="copy-button" type="button" data-copy>Copy</button></div>
+        <p class="visually-hidden" role="status"></p>
+      </div>
         </header>
         <div class="prose"><p>Explain what an engineering change actually did and what will happen because of it. The reader knows the product but may not know the code. Treat this as an investigation: repository evidence decides what changed; prose from issues and PRs explains what was intended.</p>
 <p><strong>Evidence boundary:</strong> with partial code, omit <strong>Unchanged</strong> and &quot;no action required&quot; unless the inspected paths establish them. More time or another attempt can permit success only if the operation actually completes successfully; it does not make errors, hangs, or failed retries succeed. Audit every sentence for these conditions, including the blast-radius section, and deliver only the requested explanation or evidence map.</p>

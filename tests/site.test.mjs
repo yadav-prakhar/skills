@@ -44,6 +44,19 @@ test('homepage lists each published skill once in the repository grouping order'
   assert.doesNotMatch(page, /<div class="prose">/);
 });
 
+test('every page offers its copyable install command', () => {
+  const homepage = read('index.html');
+  assert.equal(homepage.split('class="install-rail"').length - 1, 1);
+  assert.match(homepage, /<code>npx skills add yadav-prakhar\/skills<\/code>/);
+  assert.match(homepage, /<button class="copy-button" type="button" data-copy>Copy<\/button>/);
+  for (const slug of slugs) {
+    const page = read(`skills/${slug}/index.html`);
+    assert.equal(page.split('class="install-rail"').length - 1, 1);
+    assert.match(page, new RegExp(`<code>npx skills add yadav-prakhar/skills --skill ${slug}</code>`));
+    assert.match(page, /<button class="copy-button" type="button" data-copy>Copy<\/button>/);
+  }
+});
+
 test('adjacent navigation covers the complete ordered index', () => {
   const ordered = groups.flatMap(group => group.skills);
   for (const [index, slug] of ordered.entries()) {

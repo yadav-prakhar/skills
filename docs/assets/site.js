@@ -58,3 +58,39 @@ if (menu) {
     if (window.innerWidth > 760 && sidebar.classList.contains('is-open')) close(false);
   });
 }
+
+for (const button of document.querySelectorAll('[data-copy]')) {
+  button.addEventListener('click', async () => {
+    const rail = button.closest('.install-rail');
+    const command = rail?.querySelector('code')?.textContent;
+    if (!command) return;
+    const status = rail.querySelector('[role="status"]');
+    let copied = false;
+    try {
+      await navigator.clipboard.writeText(command);
+      copied = true;
+    } catch {
+      const field = document.createElement('textarea');
+      field.value = command;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.opacity = '0';
+      document.body.append(field);
+      field.select();
+      try { copied = document.execCommand('copy'); } catch {}
+      field.remove();
+    }
+    if (!copied) {
+      if (status) status.textContent = 'Copy failed. Select the command and copy it manually.';
+      return;
+    }
+    clearTimeout(button.copyTimer);
+    button.textContent = 'Copied';
+    button.dataset.state = 'copied';
+    if (status) status.textContent = 'Install command copied to clipboard.';
+    button.copyTimer = setTimeout(() => {
+      button.textContent = 'Copy';
+      delete button.dataset.state;
+    }, 1600);
+  });
+}

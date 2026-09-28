@@ -10,6 +10,7 @@ const output = join(root, 'docs');
 const base = '/skills/';
 const siteUrl = 'https://yadav-prakhar.github.io/skills';
 const repository = 'https://github.com/yadav-prakhar/skills';
+const repoSlug = repository.replace('https://github.com/', '');
 const sourceRoot = `${repository}/blob/docs/`;
 const md = new MarkdownIt({ html: false, linkify: false });
 const escape = md.utils.escapeHtml;
@@ -123,12 +124,21 @@ function sidebar(groups, current) {
   </aside>`;
 }
 
+function installRail(slug) {
+  const command = `npx skills add ${repoSlug}${slug ? ` --skill ${slug}` : ''}`;
+  return `<div class="install-rail"><p class="install-label">Install</p>
+        <div class="install-command"><code>${escape(command)}</code><button class="copy-button" type="button" data-copy>Copy</button></div>
+        <p class="visually-hidden" role="status"></p>
+      </div>`;
+}
+
 function home(groups, count) {
   const content = `<main id="main" class="home">
     <div class="home-intro"><p class="eyebrow">THE LIBRARY <span aria-hidden="true">/</span> ${String(count).padStart(2, '0')}</p>
       <h1>Reusable skills<br>for AI agents<span class="title-period">.</span></h1>
       <p class="home-description">A collection of custom agent skills. Browse the library, read how each skill works, and go to the source when you need the full files.</p>
       <p class="home-count">${count} skills <span aria-hidden="true">·</span> ${groups.length} groups</p>
+      ${installRail()}
     </div>
     <div class="index-heading"><h2>Explore the skills</h2><span>${String(count).padStart(2, '0')} / ${String(count).padStart(2, '0')}</span></div>
     <div class="skill-index">${groups.map(group => `
@@ -155,6 +165,7 @@ function detail(skill, groups, all, index, files) {
         <header class="doc-intro"><p class="breadcrumb"><a href="${base}">Skills</a><span aria-hidden="true">/</span>${escape(category)}<span aria-hidden="true">/</span>${escape(skill.title)}</p>
           <h1>${escape(skill.title)}</h1>
           <p class="doc-lede">${md.renderInline(skill.summary, env)}</p>
+          ${installRail(skill.slug)}
         </header>
         <div class="prose">${md.renderer.render(skill.tokens, md.options, env)}</div>
         <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>

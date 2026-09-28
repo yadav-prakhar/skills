@@ -61,7 +61,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 .theme-control select:hover { color: var(--fg); }
 
 .home { max-width: 900px; padding: 0 48px 72px; margin: 0 auto; }
-.home-intro { padding: 114px 0 106px; }
+.home-intro { padding: 114px 0 72px; }
 .eyebrow { margin: 0; font-size: 11px; font-weight: 650; letter-spacing: .18em; color: var(--muted); }
 .eyebrow span { margin: 0 8px; }
 .home-intro h1 { max-width: 800px; margin: 27px 0 26px; font-size: clamp(42px, 5.6vw, 72px); font-weight: 570; line-height: 1.095; letter-spacing: -.058em; }
@@ -123,6 +123,14 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 .prose code, .home code { border-radius: 3px; padding: .12em .3em; background: var(--surface); font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: .87em; }
 .prose pre { max-width: 100%; padding: 18px 20px; margin: 24px 0 32px; overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); line-height: 1.65; font-size: 12px; }
 .prose pre code { padding: 0; border-radius: 0; background: none; font-size: inherit; }
+.install-rail { margin-top: 38px; }
+.install-label { margin: 0 0 9px; color: var(--muted); font-size: 11px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
+.install-command { display: flex; align-items: stretch; max-width: 620px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); }
+.install-command code { flex: 1; min-width: 0; padding: 13px 16px; border-radius: 0; background: none; overflow-x: auto; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12.5px; line-height: 1.5; white-space: nowrap; -webkit-user-select: all; user-select: all; }
+.copy-button { flex: none; min-width: 90px; padding: 0 16px; border: 0; border-left: 1px solid var(--border); border-radius: 0 4px 4px 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 10px; font-weight: 650; letter-spacing: .14em; text-align: center; text-transform: uppercase; transition: background .16s ease, color .16s ease; }
+.copy-button:hover { background: var(--hover); color: var(--fg); }
+.copy-button[data-state="copied"] { color: var(--fg); }
+.copy-button[data-state="copied"]::after { content: "."; color: var(--muted); }
 .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 28px 0; font-size: 13px; }
 .prose th, .prose td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
 .prose hr { border: 0; border-top: 1px solid var(--border); margin: 36px 0; }
@@ -163,7 +171,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
   body.nav-open { overflow: hidden; }
   .doc-main { max-width: 720px; padding: 62px 30px 90px; }
   .home { padding: 0 30px 65px; }
-  .home-intro { padding: 94px 0 80px; }
+  .home-intro { padding: 94px 0 64px; }
   .index-group { grid-template-columns: 145px 1fr; }
 }
 
@@ -171,7 +179,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
   .masthead-inner { padding: 0 20px; }
   .header-actions { gap: 13px; }
   .home { padding: 0 22px 55px; }
-  .home-intro { padding: 80px 0 76px; }
+  .home-intro { padding: 80px 0 56px; }
   .home-intro h1 { margin-top: 22px; font-size: clamp(40px, 10vw, 52px); }
   .home-description { font-size: 14px; }
   .index-group { display: block; padding: 27px 0 34px; }
@@ -186,6 +194,8 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
   .prose h2 { margin-top: 46px; }
   .github-link { font-size: 11px; }
   .home-footer { flex-wrap: wrap; }
+  .install-command { flex-direction: column; }
+  .copy-button { min-width: 0; padding: 12px 16px; border-top: 1px solid var(--border); border-left: 0; border-radius: 0 0 4px 4px; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {

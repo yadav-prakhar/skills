@@ -8,7 +8,7 @@ from run_explanation_smoke import build_prompts
 
 ROOT = Path(__file__).resolve().parents[1]
 FAMILY = {"eli5", "change-tldr", "change-explainer"}
-PUBLISHED = FAMILY | {"software-critique", "medical-assistant"}
+PUBLISHED = FAMILY | {"software-critique", "medical-assistant", "bro"}
 
 
 class ExplanationSkillsTests(unittest.TestCase):

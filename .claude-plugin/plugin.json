@@ -11,6 +11,7 @@
     "./skills/change-tldr",
     "./skills/change-explainer",
     "./skills/eli5",
+    "./skills/bro",
     "./skills/medical-assistant"
   ]
 }

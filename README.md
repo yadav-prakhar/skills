@@ -28,6 +28,7 @@ under **PrakharYadav Skills** in `npx skills list`.
 | [`change-tldr`](skills/change-tldr/SKILL.md) | Fast reviewer summary of a PR, issue chain, commit range, or session: before → now, guarantees, unchanged behavior, verification, and next steps. |
 | [`change-explainer`](skills/change-explainer/SKILL.md) | Thorough investigation of an engineering change: evidence hierarchy, intent versus reality, blast radius, risks, verification, and remaining work. |
 | [`eli5`](skills/eli5/SKILL.md) | Audience-adaptive explanation of concepts, code, systems, errors, and changes using the simplest accurate mental model. |
+| [`bro`](skills/bro/SKILL.md) | Restates the last message in plain human language with no jargon. Created by [Lauren Tan (poteto)](https://github.com/poteto) ([X](https://x.com/poteto)) in [pstack](https://github.com/cursor/plugins/tree/main/pstack); included with attribution. |
 
 Use `change-tldr` for the former ELI5 change-summary workflow, `change-explainer`
 for a detailed investigation, and `eli5` when audience-friendly understanding is

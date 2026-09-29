@@ -12,6 +12,10 @@ const siteUrl = 'https://yadav-prakhar.github.io/skills';
 const repository = 'https://github.com/yadav-prakhar/skills';
 const repoSlug = repository.replace('https://github.com/', '');
 const sourceRoot = `${repository}/blob/docs/`;
+// Credits for skills adapted from other authors. Shown on the website and README, not in SKILL.md.
+const credits = {
+  bro: 'Created by [Lauren Tan (poteto)](https://github.com/poteto) ([@poteto on X](https://x.com/poteto)) as part of [pstack](https://github.com/cursor/plugins/tree/main/pstack) in the Cursor plugins repository. The instruction text is reproduced from the [original `bro` skill](https://github.com/cursor/plugins/blob/main/pstack/skills/bro/SKILL.md). All credit belongs to the original author.',
+};
 const md = new MarkdownIt({ html: false, linkify: false });
 const escape = md.utils.escapeHtml;
 const skillUrl = slug => `${base}skills/${encodeURIComponent(slug)}/`;
@@ -168,7 +172,7 @@ function detail(skill, groups, all, index, files) {
           ${installRail(skill.slug)}
         </header>
         <div class="prose">${md.renderer.render(skill.tokens, md.options, env)}</div>
-        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+        ${credits[skill.slug] ? `<section class="source-section" aria-labelledby="attribution-title"><h2 id="attribution-title">Attribution</h2><p>${md.renderInline(credits[skill.slug])}</p></section>\n        ` : ''}<section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
           <a href="${sourceRoot}skills/${skill.slug}/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
         </section>
         <nav class="page-turn" aria-label="Adjacent skills">

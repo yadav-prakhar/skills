@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Study book — Agent Skills</title>
+  <meta name="description" content="Build a printable A4 self-study book (PDF) plus an interactive HTML companion that teaches a learner from zero, grounded in real repositories, pull requests, documents or systems. Use when someone ask">
+  <link rel="canonical" href="https://yadav-prakhar.github.io/skills/skills/study-book/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Study book — Agent Skills">
+  <meta property="og:description" content="Build a printable A4 self-study book (PDF) plus an interactive HTML companion that teaches a learner from zero, grounded in real repositories, pull requests, documents or systems. Use when someone ask">
+  <meta property="og:url" content="https://yadav-prakhar.github.io/skills/skills/study-book/">
+  <link rel="stylesheet" href="/skills/assets/style.css">
+  <script>try{let t=localStorage.getItem('skills-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  <script src="/skills/assets/site.js" defer></script>
+</head>
+<body class="skill-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="/skills/" aria-label="Skills home">SKILLS<span class="wordmark-period">.</span></a>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-label="Open skill navigation" aria-expanded="false" aria-controls="skill-sidebar"><span></span><span></span></button>
+        <a class="github-link" href="https://github.com/yadav-prakhar/skills">GitHub <span aria-hidden="true">↗</span></a>
+        <label class="theme-control"><span class="visually-hidden">Color theme</span><select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <aside class="sidebar" id="skill-sidebar" aria-label="Skill navigation">
+    <div class="sidebar-inner"><a class="sidebar-home" href="/skills/">All skills <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Browse skills">
+        <div class="nav-group"><h2>Software Critique</h2>
+          <ul><li><a href="/skills/skills/software-critique/">Software Critique</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Code Communication</h2>
+          <ul><li><a href="/skills/skills/change-tldr/">Change TL;DR</a></li><li><a href="/skills/skills/change-explainer/">Change Explainer</a></li><li><a href="/skills/skills/eli5/">ELI5</a></li><li><a href="/skills/skills/bro/">Bro</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Grounded Deliverables</h2>
+          <ul><li><a href="/skills/skills/grounded-deliverable/">Grounded deliverable</a></li><li><a href="/skills/skills/study-book/" aria-current="page">Study book</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Health</h2>
+          <ul><li><a href="/skills/skills/medical-assistant/">Medical Assistant</a></li></ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+    <button class="nav-scrim" type="button" aria-label="Close skill navigation" hidden></button>
+    <main id="main" class="doc-main">
+      <article>
+        <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Grounded Deliverables<span aria-hidden="true">/</span>Study book</p>
+          <h1>Study book</h1>
+          <p class="doc-lede">Build a printable A4 self-study book (PDF) plus an interactive HTML companion that teaches a learner from zero, grounded in real repositories, pull requests, documents or systems.</p>
+          <div class="install-rail"><p class="install-label">Install</p>
+        <div class="install-command"><code>npx skills add yadav-prakhar/skills --skill study-book</code><button class="copy-button" type="button" data-copy>Copy</button></div>
+        <p class="visually-hidden" role="status"></p>
+      </div><section class="requirements" aria-label="Requirements"><p class="requirements-label">Requirements</p>
+          <ul class="requirement-list"><li><p><span class="requirement-name">Node.js 18 or later</span> <span class="requirement-note">Runs the build and companion test scripts.</span></p></li><li><p><span class="requirement-name">Playwright with Chromium</span> <span class="requirement-note">Renders the book PDF and drives the companion test.</span></p><code>npm i playwright &amp;&amp; npx playwright install chromium</code></li><li><p><span class="requirement-name">Python 3 with PyMuPDF</span> <span class="requirement-note">Finds chapter page numbers and renders QA pages.</span></p><code>pip install pymupdf</code></li></ul>
+        </section>
+        </header>
+        <div class="prose"><p>Produce three things in one output folder: <code>book.pdf</code> (A4, printable), <code>book.html</code> (same book,
+for screens), and <code>companion.html</code> (interactive diagrams and a self-marking quiz). The book
+teaches a reader who knows nothing about the area, from foundations to a file-by-file
+walkthrough of the real material, and every claim in it is checked against a source.</p>
+<p>Two qualities make this work, and they are worth more than length or polish:</p>
+<ul>
+<li><strong>Grounded</strong>: every fact traces to a file, commit, document or official doc page; anything
+you could not verify says so. Reading closely while writing surfaces real problems in the
+material: record them as <strong>open findings</strong>. They are often the most valuable pages.</li>
+<li><strong>Looked at</strong>: you render the pages and the companion and look at them before you call
+them done. A build that succeeds can still print overlapping labels or a demo that shows
+nothing.</li>
+</ul>
+<p>If <code>grounded-deliverable</code> is installed, its evidence rules apply to every step here.</p>
+<h2 id="steps">Steps</h2>
+<h3 id="1-frame-the-brief">1. Frame the brief</h3>
+<p>Pin down: the reader and what they already know (default: nothing), the material to teach
+(repos, PRs, folders, docs), the output folder, the paper size (default A4), and any
+organisation rules (for example &quot;keep artifacts local&quot;). Ask the user only about things that
+would change the output; take sensible defaults for the rest and state them.</p>
+<p><em>Done when</em> you can name the reader, the material list, the output folder, and the parts of
+the book.</p>
+<h3 id="2-gather-evidence-into-a-ledger">2. Gather evidence into a ledger</h3>
+<ul>
+<li><strong>Refresh first</strong>: <code>git fetch</code> every repo you will cite (for a repo you must not write to,
+even <code>.git/</code>, use <code>git ls-remote origin &lt;branch&gt;</code> and compare with <code>git rev-parse</code>). Read PR
+diffs from a local <code>git diff base...head</code> rather than a web API when they are large. Record
+the SHA of every ref you read.</li>
+<li><strong>Run experiments where reading is not enough</strong>: on a throwaway copy (<code>git archive HEAD | tar -x -C /tmp/lab</code>), never the original, break one thing at a time and run the real check.
+For a test suite, a small mutation table (&quot;edit X → which tests go red?&quot;) produces findings
+no reading will, and makes excellent &quot;predict&quot; exercises.</li>
+<li>Read every changed file in full, the PR descriptions, every review comment, and the
+reader's own notes in the workspace (notes often contain the history and the reasons).</li>
+<li>Read the code around the change that the change depends on: config, page objects, the
+scripts the CI runs, the pipeline definitions.</li>
+<li>Keep a <strong>ledger</strong> (scratch file): claim → source (<code>path:line</code>, SHA, URL) → status
+(verified / reported / unverified). Add a row whenever a doc, comment or PR description
+says something; check it against the code before it enters the book.</li>
+</ul>
+<p><em>Done when</em> every file the walkthrough chapters will show has been read in full, and every
+ref has a recorded SHA.</p>
+<h3 id="3-outline">3. Outline</h3>
+<p>Follow <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/study-book/references/chapter-anatomy.md">references/chapter-anatomy.md</a>: foundations chosen from
+what the walkthrough needs, then the subject from general to specific, then the walkthrough,
+then answers and reference. Write the chapter list with one line each.</p>
+<p><em>Done when</em> every concept used in the walkthrough chapters is taught in an earlier chapter or
+at first use, and the outline fits the page budget (see &quot;Page budget&quot; in the anatomy file;
+use <code>--compact</code> for books under ~20 pages).</p>
+<h3 id="4-check-external-facts">4. Check external facts</h3>
+<p>For each framework, library or platform behaviour the book will state as fact, look it up in
+official docs (a docs tool such as context7, or the vendor site) and quote the line you rely on
+in your ledger. Behaviour of waits, retries, workers, defaults and edge cases is where memory is
+most often wrong.</p>
+<p><em>Done when</em> every external-behaviour claim in the outline has a doc citation in the ledger.</p>
+<h3 id="5-write-the-chapters-as-fragments">5. Write the chapters as fragments</h3>
+<p>Create a source folder (scratch space is fine) with one file per chapter, named <code>NN-name.html</code>
+in reading order (<code>01-front.html</code>, <code>10-ch01.html</code>, …). Copy the patterns from
+<a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/study-book/assets/chapter-example.html">assets/chapter-example.html</a>. Follow the chapter rhythm: ELI5
+box → real concept → real code with paths → watch-out / key / finding boxes → Check yourself.
+Write figures and screenshots per <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/study-book/references/print-and-figures.md">references/print-and-figures.md</a>.
+Write the answer key as you finish each chapter.</p>
+<p>Large chapters: write one fragment per tool call; never hold the whole book in one file.</p>
+<p><em>Done when</em> every chapter in the outline exists as a fragment, ends with exercises, and has its
+answers in the answer-key fragment.</p>
+<h3 id="6-build-and-look">6. Build and look</h3>
+<pre><code class="language-bash">node scripts/build_book.mjs --src &lt;fragments&gt; --out &lt;output folder&gt; --title &quot;&lt;Title&gt;&quot; \
+  --resolve-from &lt;a project with playwright installed&gt;
+python3 scripts/render_pages.py &lt;out&gt;/book.pdf --out &lt;qa folder&gt; --figures \
+  --find &quot;Contents&quot; --section &lt;answer-key data-id&gt; --section &lt;cheat-sheet data-id&gt;
+</code></pre>
+<p>The build does two passes for real page numbers in the contents and fails on broken images.
+Open the rendered PNGs and fix what you see: overlapping labels, wrapped code, a chapter
+missing from the contents, near-empty pages. Rebuild after each round.</p>
+<p><em>Done when</em> the build exits 0 and you have looked at every figure page, the contents, one code
+page, one exercise page and the cheat sheet.</p>
+<h3 id="7-build-the-companion">7. Build the companion</h3>
+<p>Follow <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/study-book/references/companion.md">references/companion.md</a>: copy
+<a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/study-book/assets/companion-starter.html">assets/companion-starter.html</a>, fill its <code>PANELS</code> data from the
+chapters, then:</p>
+<pre><code class="language-bash">node scripts/test_companion.mjs --file &lt;out&gt;/companion.html --out &lt;qa folder&gt; \
+  --click &quot;&lt;selector&gt;&quot; --repeat 3 --resolve-from &lt;playwright project&gt;
+</code></pre>
+<p><em>Done when</em> the test passes and you have read what each panel says after interaction.</p>
+<h3 id="8-re-verify-and-review">8. Re-verify and review</h3>
+<p>Re-fetch the repos (or <code>git ls-remote</code> for read-only ones). If any ref moved, re-run the checks behind each open finding and every
+&quot;merges cleanly&quot; or &quot;not wired&quot; claim, and fix what changed. Put the verified SHAs on the cover.
+Then get an independent review (a reviewer subagent or advisor) of the finished files before
+you report.</p>
+<p><em>Done when</em> every open finding has been checked against the latest refs and the review's
+points are fixed or answered.</p>
+<h3 id="9-report">9. Report</h3>
+<p>Reply briefly: where the files are, how to print (A4 at 100% / &quot;Actual size&quot;, not &quot;fit to
+page&quot;), which pages hold the answer key, what you deliberately left out and why, and the open
+findings that matter for the reader's own work, one line each.</p>
+<h2 id="scripts-and-assets">Scripts and assets</h2>
+<p>Paths are relative to this skill's folder. Call the scripts by absolute path, and copy assets
+into your own folders rather than editing them in place.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scripts/build_book.mjs</code></td>
+<td>fragments → <code>book.html</code> → <code>book.pdf</code>, two-pass page numbers, broken-image check</td>
+</tr>
+<tr>
+<td><code>scripts/locate_pages.py</code></td>
+<td>finds each chapter's page via invisible <code>@@id@@</code> markers (needs PyMuPDF)</td>
+</tr>
+<tr>
+<td><code>scripts/render_pages.py</code></td>
+<td>renders chosen pages to PNG for visual QA; reports near-empty pages</td>
+</tr>
+<tr>
+<td><code>scripts/test_companion.mjs</code></td>
+<td>headless smoke test: errors, clicks, phone-width overflow, screenshots</td>
+</tr>
+<tr>
+<td><code>assets/head.html</code></td>
+<td>the print stylesheet and component styles</td>
+</tr>
+<tr>
+<td><code>assets/chapter-example.html</code></td>
+<td>every book component, ready to copy</td>
+</tr>
+<tr>
+<td><code>assets/companion-starter.html</code></td>
+<td>data-driven companion: stepper, simulator, DAG, quiz</td>
+</tr>
+</tbody>
+</table>
+<p>Dependencies: Node 18+, Playwright with Chromium (<code>--resolve-from</code> any project that has it, or
+<code>npm i playwright &amp;&amp; npx playwright install chromium</code> in a scratch folder), Python 3 with
+<code>pymupdf</code> for page numbers and QA renders.</p>
+</div>
+        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+          <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/study-book/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
+        </section>
+        <nav class="page-turn" aria-label="Adjacent skills">
+          <a href="/skills/skills/grounded-deliverable/" rel="prev"><span>← Previous</span><strong>Grounded deliverable</strong></a>
+          <a href="/skills/skills/medical-assistant/" rel="next"><span>Next →</span><strong>Medical Assistant</strong></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

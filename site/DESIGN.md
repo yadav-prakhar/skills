@@ -12,13 +12,13 @@ This is a readable library for people browsing, evaluating, and installing agent
 ## Page composition
 
 - **Home:** a sticky, thin-bordered masthead above a centered (900px max) content column with left-aligned text. A spacious type-led introduction, closing on a copyable install command, precedes a ruled catalog. Each group has a small category label on the left and skill-name/summary rows on the right; rows behave as whole links rather than cards.
-- **Skill detail:** a persistent category sidebar (256px on wide screens), breadcrumb, large title, short lede, a copyable install command for that skill, and a reading column (740px max for the article). Headings, paragraphs, lists, code, tables, the source link, and previous/next links form one continuous document flow.
+- **Skill detail:** a persistent category sidebar (256px on wide screens), breadcrumb, large title, short lede, a copyable install command for that skill, a Requirements list when the skill needs software beyond its own files, and a reading column (740px max for the article). Headings, paragraphs, lists, code, tables, the source link, and previous/next links form one continuous document flow.
 - **Responsive:** at 760px the sidebar becomes a menu with a scrim; at 550px the grouped catalog stacks. Preserve comfortable reading widths, spacing, and the 320px minimum viewport rather than shrinking the desktop layout uniformly.
 
 ## Interaction and content
 
 - Keep interactions functional and restrained: row highlights, subtle arrow motion, clear selected navigation, and a theme selector with system/light/dark choices. System preference is the default; explicit choices persist in local storage.
-- Install commands appear once per page as an install rail: a monospace command on a surface fill with a Copy button. A successful copy swaps the label to `Copied.` (the muted period used elsewhere) and announces the result through a status region; the button holds its width so the feedback does not shift the layout. Without JavaScript, the command remains selectable text.
+- Install commands appear once per page as an install rail: a monospace command on a surface fill with a Copy button. A successful copy swaps the label to `Copied.` (the muted period used elsewhere) and announces the result through a status region; the button holds its width so the feedback does not shift the layout. Without JavaScript, the command remains selectable text. The Requirements list under the install rail uses the same surface for its dependency commands, but those are selectable code with no Copy button, so the install rail stays the page's only copy control.
 - Preserve the skip link, visible keyboard focus, labeled controls, current-page indication, focus behavior in the mobile menu, and reduced-motion support when changing navigation or animation.
 - Write plain, descriptive copy. Skill titles, descriptions, and article bodies come from `skills/*/SKILL.md`; ordering and groups come from `skills.sh.json`. Source links should let readers inspect the original file rather than presenting the rendered page as a separate source of truth.
 

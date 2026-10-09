@@ -124,12 +124,19 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 .prose pre { max-width: 100%; padding: 18px 20px; margin: 24px 0 32px; overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); line-height: 1.65; font-size: 12px; }
 .prose pre code { padding: 0; border-radius: 0; background: none; font-size: inherit; }
 .install-rail { margin-top: 38px; }
-.install-label { margin: 0 0 9px; color: var(--muted); font-size: 11px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
+.install-label, .requirements-label { margin: 0 0 9px; color: var(--muted); font-size: 11px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
 .install-command { display: flex; align-items: stretch; max-width: 620px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); }
 .install-command code { flex: 1; min-width: 0; padding: 13px 16px; border-radius: 0; background: none; overflow-x: auto; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12.5px; line-height: 1.5; white-space: nowrap; -webkit-user-select: all; user-select: all; }
 .copy-button { flex: none; min-width: 90px; padding: 0 16px; border: 0; border-left: 1px solid var(--border); border-radius: 0 4px 4px 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 10px; font-weight: 650; letter-spacing: .14em; text-align: center; text-transform: uppercase; transition: background .16s ease, color .16s ease; }
 .copy-button:hover { background: var(--hover); color: var(--fg); }
 .copy-button[data-state="copied"] { color: var(--fg); }
+.requirements { max-width: 620px; margin-top: 36px; }
+.requirement-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+.requirement-list li { display: flex; flex-direction: column; gap: 9px; padding: 16px 0 18px; border-bottom: 1px solid var(--border); }
+.requirement-list p { margin: 0; font-size: 14px; line-height: 1.5; }
+.requirement-name { font-weight: 600; letter-spacing: -.012em; }
+.requirement-note { color: var(--muted); }
+.requirement-list code { max-width: 100%; padding: 9px 12px; overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; line-height: 1.5; white-space: nowrap; -webkit-user-select: all; user-select: all; }
 .copy-button[data-state="copied"]::after { content: "."; color: var(--muted); }
 .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 28px 0; font-size: 13px; }
 .prose th, .prose td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }

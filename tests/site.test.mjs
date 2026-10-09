@@ -57,6 +57,14 @@ test('every page offers its copyable install command', () => {
   }
 });
 
+test('skills with runtime requirements list them on their page', () => {
+  const page = read('skills/study-book/index.html');
+  assert.match(page, /<section class="requirements" aria-label="Requirements">/);
+  assert.match(page, /<code>npm i playwright &amp;&amp; npx playwright install chromium<\/code>/);
+  assert.match(page, /<code>pip install pymupdf<\/code>/);
+  assert.doesNotMatch(read('skills/grounded-deliverable/index.html'), /class="requirements"/);
+});
+
 test('adjacent navigation covers the complete ordered index', () => {
   const ordered = groups.flatMap(group => group.skills);
   for (const [index, slug] of ordered.entries()) {

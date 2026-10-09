@@ -16,6 +16,14 @@ const sourceRoot = `${repository}/blob/docs/`;
 const credits = {
   bro: 'Created by [Lauren Tan (poteto)](https://github.com/poteto) ([@poteto on X](https://x.com/poteto)) as part of [pstack](https://github.com/cursor/plugins/tree/main/pstack) in the Cursor plugins repository. The instruction text is reproduced from the [original `bro` skill](https://github.com/cursor/plugins/blob/main/pstack/skills/bro/SKILL.md). All credit belongs to the original author.',
 };
+// Software a reader must install before a skill's bundled scripts run. Shown on the website, not in SKILL.md.
+const requirements = {
+  'study-book': [
+    { name: 'Node.js 18 or later', note: 'Runs the build and companion test scripts.' },
+    { name: 'Playwright with Chromium', note: 'Renders the book PDF and drives the companion test.', command: 'npm i playwright && npx playwright install chromium' },
+    { name: 'Python 3 with PyMuPDF', note: 'Finds chapter page numbers and renders QA pages.', command: 'pip install pymupdf' },
+  ],
+};
 const md = new MarkdownIt({ html: false, linkify: false });
 const escape = md.utils.escapeHtml;
 const skillUrl = slug => `${base}skills/${encodeURIComponent(slug)}/`;
@@ -136,6 +144,14 @@ function installRail(slug) {
       </div>`;
 }
 
+function requirementList(slug) {
+  const items = requirements[slug];
+  if (!items) return '';
+  return `<section class="requirements" aria-label="Requirements"><p class="requirements-label">Requirements</p>
+          <ul class="requirement-list">${items.map(item => `<li><p><span class="requirement-name">${escape(item.name)}</span> <span class="requirement-note">${escape(item.note)}</span></p>${item.command ? `<code>${escape(item.command)}</code>` : ''}</li>`).join('')}</ul>
+        </section>`;
+}
+
 function home(groups, count) {
   const content = `<main id="main" class="home">
     <div class="home-intro"><p class="eyebrow">THE LIBRARY <span aria-hidden="true">/</span> ${String(count).padStart(2, '0')}</p>
@@ -169,7 +185,7 @@ function detail(skill, groups, all, index, files) {
         <header class="doc-intro"><p class="breadcrumb"><a href="${base}">Skills</a><span aria-hidden="true">/</span>${escape(category)}<span aria-hidden="true">/</span>${escape(skill.title)}</p>
           <h1>${escape(skill.title)}</h1>
           <p class="doc-lede">${md.renderInline(skill.summary, env)}</p>
-          ${installRail(skill.slug)}
+          ${installRail(skill.slug)}${requirementList(skill.slug)}
         </header>
         <div class="prose">${md.renderer.render(skill.tokens, md.options, env)}</div>
         ${credits[skill.slug] ? `<section class="source-section" aria-labelledby="attribution-title"><h2 id="attribution-title">Attribution</h2><p>${md.renderInline(credits[skill.slug])}</p></section>\n        ` : ''}<section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
@@ -206,6 +222,9 @@ async function main() {
   if (!skills.length) throw new Error('No skills found under skills/*/SKILL.md');
   const config = JSON.parse(await readFile(join(root, 'skills.sh.json'), 'utf8'));
   const bySlug = new Map(skills.map(skill => [skill.slug, skill]));
+  for (const slug of Object.keys(requirements)) {
+    if (!bySlug.has(slug)) throw new Error(`Requirements listed for unknown skill: ${slug}`);
+  }
   const assigned = new Set();
   const groups = config.groupings.map(group => {
     const members = group.skills.map(slug => {

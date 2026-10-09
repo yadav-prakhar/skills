@@ -14,7 +14,8 @@ Pages serves from `docs` at `/docs`.
 | Change | Branch | Files |
 |---|---|---|
 | Skill content | master, then docs | `skills/<slug>/` (SKILL.md, `references/`, `scripts/`, `assets/`) |
-| Registry | master | `.claude-plugin/plugin.json`, `skills.sh.json` (groups), `README.md` table, `PUBLISHED` set in `tests/test_explanation_skills.py` |
+| Registry | master | `.claude-plugin/plugin.json`, `skills.sh.json` (groups), `README.md` table. `tests/test_explanation_skills.py` checks all three against `skills/*/SKILL.md` |
+| CI | master and docs | `.github/workflows/ci.yml`. Keep the copy on both branches identical |
 | Dependencies and credits | docs | `requirements` and `credits` maps in `site/build.mjs` |
 | Look and layout | docs | `site/style.css`, `site/site.js`, `site/DESIGN.md` (update DESIGN.md when the visual language changes) |
 | Generated pages | docs | `docs/`: rebuilt by the builder, never hand-edited |
@@ -41,12 +42,12 @@ place to push. Push with `git push -u origin <branch>` so the push target is alw
 
 ### 3. Register the skill on master
 
-A published skill appears in four places, and each one has a different failure mode:
+A published skill appears in three places. `tests/test_explanation_skills.py` derives the expected set
+from `skills/*/SKILL.md` and fails if any of these lists differs from it:
 
 - `.claude-plugin/plugin.json`, the `skills` list (`./skills/<slug>`).
 - `skills.sh.json`, a grouping. A skill missing here lands under "More skills" on the site.
-- `README.md`, a table row. Nothing checks it.
-- `PUBLISHED` in `tests/test_explanation_skills.py`. The test requires it to match plugin.json and the groupings.
+- `README.md`, a table row whose link points at `skills/<slug>/SKILL.md`.
 
 Run:
 
@@ -55,7 +56,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_*.py'
 git diff --check
 ```
 
-*Done when* the suite passes, `git diff --check` is clean, and the four lists agree.
+*Done when* the suite passes and `git diff --check` is clean.
 
 ### 4. Commit, push, and open the PR
 
@@ -89,7 +90,7 @@ git -c user.name=... -c user.email=... cherry-pick <master-sha>   # identity: as
   `command`) for software a skill needs, or a `credits` entry. The build throws on a key that is
   not a skill. Do not put these in SKILL.md.
 
-*Done when* the docs skill diff holds only the intended changes. Any other drift is reported, not copied.
+*Done when* the docs skill diff holds only the intended changes. Any other drift is reported, not copied. CI fails on drift outside the `known_drift` variable in `ci.yml`, so add a path there only with a reason.
 
 ### 6. Rebuild and test on docs
 

@@ -1,0 +1,108 @@
+<!--
+  Example fragments for build_book.mjs. Copy the pieces you need into NN-*.html files.
+  Every component below is styled by assets/head.html. Keep each chapter in its own file
+  (10-ch01.html, 11-ch02.html …) so a rebuild after one fix is cheap and diffs stay small.
+-->
+
+<!-- ===== 01-front.html: cover + how-to-use + contents ===== -->
+<section class="cover">
+  <div class="kicker">Team · Area · Topic</div>
+  <h1>Book Title<br>Second Line</h1>
+  <p class="sub">One sentence: what the reader will be able to do after reading, and which real material it walks through.</p>
+  <div class="meta">
+    Written for &lt;reader&gt; · &lt;month year&gt;<br>
+    Sources, read and re-checked on &lt;date&gt;: <span class="mono">org/repo main@abc1234</span>, PR #123 head <span class="mono">def5678</span>.<br>
+    Companion: <span class="mono">companion.html</span> in the same folder.
+  </div>
+</section>
+
+<section class="chapter" data-id="howto" data-title="How to use this book">
+  <div class="kicker">Before you start</div>
+  <h1>How to use this book</h1>
+  <p class="lede">Who it is for, what it assumes (usually: nothing), and how each chapter is shaped.</p>
+  <h2>Contents</h2>
+  <div class="toc"><!--TOC--></div>
+</section>
+
+<!-- ===== a part divider ===== -->
+<section class="part" data-id="p1" data-title="Part I · Foundations">
+  <div class="kicker">Part I</div>
+  <h1>Foundations</h1>
+  <p>One or two sentences on what this part covers.</p>
+</section>
+
+<!-- ===== a chapter ===== -->
+<section class="chapter" data-id="ch1" data-title="1. Chapter title">
+  <div class="kicker">Chapter 1</div>
+  <h1>Chapter title</h1>
+  <p class="lede">What this chapter answers, in one or two sentences.</p>
+
+  <div class="box eli5"><span class="label">ELI5</span>
+    <p>The idea as a concrete everyday picture (a filing cabinet, a hotel, a recipe). No jargon. Map each part of the picture onto a real term in <b>bold</b> so the next section can pick the terms up.</p>
+  </div>
+
+  <h2>1.1 The real concept</h2>
+  <p>Name it properly now. Define every new term the first time it appears. Short paragraphs.</p>
+
+  <pre class="keep"><code><span class="k">async function</span> createRecord(api, table, data) {   <span class="c">// what this line does</span>
+  <span class="k">const</span> response = <span class="k">await</span> api.post(url, { data });  <span class="c">// keep lines under ~95 characters</span>
+<span class="add">+ an added line in a diff</span>
+<span class="del">- a removed line in a diff</span>
+}</code></pre>
+  <p class="src">path/to/file.js (shortened). Say "shortened" whenever you cut lines; mark cuts with a line containing only …</p>
+
+  <div class="box real"><span class="label">In the real code</span><p>Where the idea lives, with <code>path/file.js:42</code>.</p></div>
+  <div class="box warn"><span class="label">Watch out</span><p>A trap that has bitten someone, or an easy misreading.</p></div>
+  <div class="box key"><span class="label">Key idea</span><p>One sentence worth a highlighter.</p></div>
+  <div class="box finding"><span class="label">Open finding: short name</span>
+    <p>What you found, the evidence (<code>file:line</code>, commit, doc quote), why it matters, and how sure you are: say "read in the code, not run" when you did not run it.</p>
+  </div>
+
+  <!-- inline SVG diagram. viewBox 640 wide ≈ the 162 mm text column, so font-size 10–11 ≈ 8 pt. -->
+  <figure>
+  <svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" font-size="10.5">
+    <defs><marker id="arr-ch1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker></defs>
+    <rect x="10" y="30" width="170" height="54" fill="none" stroke="#111"/>
+    <text x="20" y="50" font-weight="700">Box title</text><text x="20" y="66">one short line</text>
+    <line x1="180" y1="57" x2="238" y2="57" stroke="#111" marker-end="url(#arr-ch1)"/>
+    <rect x="240" y="30" width="170" height="54" fill="none" stroke="#1d4f9a" stroke-width="1.3"/>
+    <text x="250" y="50" font-weight="700" fill="#1d4f9a">Highlighted box</text><text x="250" y="66">the focus of the figure</text>
+  </svg>
+  <figcaption><b>Figure 1.1</b> A caption that says what to notice, not just what it is. Every number or label in the figure must come from a source.</figcaption>
+  </figure>
+
+  <!-- a real screenshot, or two side by side -->
+  <figure class="pair">
+    <div><img src="img/example-before.png" alt="before"><figcaption><b>Figure 1.2</b> Describe exactly what is visible (you looked at the image).</figcaption></div>
+    <div><img src="img/example-after.png" alt="after"><figcaption><b>Figure 1.3</b> And what changed.</figcaption></div>
+  </figure>
+
+  <table>
+    <tr><th>Term</th><th>Meaning</th><th>Seen in</th></tr>
+    <tr><td><code>thing</code></td><td>plain-language meaning</td><td>file.js</td></tr>
+  </table>
+
+  <div class="ex">
+    <h3>Check yourself · Chapter 1</h3>
+    <ol>
+      <li>Fill in: the X is called <span class="blank"></span> and lives in <span class="blank s"></span>.</li>
+      <li>Multiple choice question?
+        <ul class="opts"><li>option</li><li>option</li><li>option</li><li>option</li></ul></li>
+      <li>Predict: &lt;a concrete change&gt;. What happens, and why?<div class="lines"><span></span><span></span></div></li>
+      <li>In your own words, explain … <div class="lines"><span></span><span></span><span></span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== answer key (separate pages at the back) ===== -->
+<section class="chapter answers" data-id="answers" data-title="Answer key">
+  <div class="kicker">Answers</div>
+  <h1>Answer key</h1>
+  <h3>Chapter 1</h3>
+  <ol>
+    <li>X; Y.</li>
+    <li>Option 2, because …</li>
+    <li>It … because <b>the idea that must appear</b>.</li>
+    <li>Any answer that contains <b>this idea</b> is right.</li>
+  </ol>
+</section>

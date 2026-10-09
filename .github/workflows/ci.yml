@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [master, docs]
+  pull_request:
+    branches: [master, docs]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # origin/master is needed for the range checks
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Python suite
+        run: PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Whitespace in changes since master
+        run: git diff --check origin/master...HEAD
+
+      - uses: actions/setup-node@v4
+        if: hashFiles('package.json') != ''
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install site dependencies
+        if: hashFiles('package.json') != ''
+        run: npm ci
+
+      - name: Build and test site
+        if: hashFiles('package.json') != ''
+        run: |
+          npm run build
+          npm run test:site
+
+      - name: Generated docs match the builder
+        if: hashFiles('package.json') != ''
+        run: |
+          if [ -n "$(git status --porcelain -- docs)" ]; then
+            git status --short -- docs
+            echo "docs/ differs from a fresh build. Rebuild and commit it."
+            exit 1
+          fi
+
+      - name: Docs skill copies match master
+        if: hashFiles('package.json') != ''
+        run: |
+          # Deliberate differences from master. Add a path only with a reason in the PR.
+          known_drift='skills/bro/SKILL.md'
+          unexpected=$(git diff --name-only origin/master HEAD -- skills/ | grep -vxF "$known_drift" || true)
+          if [ -n "$unexpected" ]; then
+            echo "Skill copies on docs differ from master and are not in known_drift:"
+            echo "$unexpected"
+            exit 1
+          fi

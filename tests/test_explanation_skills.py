@@ -8,20 +8,31 @@ from run_explanation_smoke import build_prompts
 
 ROOT = Path(__file__).resolve().parents[1]
 FAMILY = {"eli5", "change-tldr", "change-explainer"}
-PUBLISHED = FAMILY | {"software-critique", "medical-assistant", "bro", "grounded-deliverable", "study-book"}
+
+
+def skills_on_disk():
+    # The site builder publishes every folder under skills/ that has a SKILL.md.
+    return sorted(path.parent.name for path in (ROOT / "skills").glob("*/SKILL.md"))
 
 
 class ExplanationSkillsTests(unittest.TestCase):
-    def test_manifest_and_groups_cover_published_skills(self):
+    def test_registry_lists_match_skills_on_disk(self):
+        expected = skills_on_disk()
+        self.assertTrue(expected, "no skills found under skills/")
         manifest = json.loads((ROOT / ".claude-plugin/plugin.json").read_text())
         paths = [ROOT / path for path in manifest["skills"]]
-        self.assertCountEqual([path.name for path in paths], PUBLISHED)
+        self.assertCountEqual([path.name for path in paths], expected)
         for path in paths:
             self.assertTrue((path / "SKILL.md").is_file(), path)
         groups = json.loads((ROOT / "skills.sh.json").read_text())["groupings"]
         self.assertCountEqual(
-            [name for group in groups for name in group["skills"]], PUBLISHED
+            [name for group in groups for name in group["skills"]], expected
         )
+        readme = (ROOT / "README.md").read_text()
+        readme_rows = re.findall(
+            r"^\| \[`([^`]+)`\]\(skills/\1/SKILL\.md\)", readme, re.MULTILINE
+        )
+        self.assertCountEqual(readme_rows, expected)
 
     def test_family_metadata_and_example_links(self):
         for name in FAMILY:

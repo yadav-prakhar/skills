@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} Companion</title>
+<!--
+  Companion starter. Copy, set {{TITLE}}, then fill the DATA blocks at the bottom.
+  Four data-driven widgets, so you write content, not UI code:
+    1. data-stepper  : click through a process (pipeline, lifecycle, request flow) step by step
+    2. data-sim      : choose inputs, see which path fires and what outcome it produces
+    3. data-dag      : a node/edge diagram that lights up node by node with explanations
+    4. data-quiz     : self-marking multiple choice with an explanation per question
+  Self-contained: no network, no libraries. Light + dark themes. Works at 375 px wide.
+-->
+<style>
+:root{--bg:#fbfaf8;--card:#fff;--ink:#16181d;--soft:#5b616e;--line:#d9d6d0;--accent:#1d4f9a;--accent-soft:#e8eef8;--ok:#0b6b2b;--ok-soft:#e6f4ea;--bad:#a11818;--bad-soft:#fbe9e9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171b;--card:#1d2026;--ink:#e9e7e3;--soft:#a3a8b3;--line:#363a43;--accent:#8fb3ef;--accent-soft:#22304a;--ok:#7fd49a;--ok-soft:#1d3326;--bad:#f19a9a;--bad-soft:#3a2020}}
+:root[data-theme="dark"]{--bg:#15171b;--card:#1d2026;--ink:#e9e7e3;--soft:#a3a8b3;--line:#363a43;--accent:#8fb3ef;--accent-soft:#22304a;--ok:#7fd49a;--ok-soft:#1d3326;--bad:#f19a9a;--bad-soft:#3a2020}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+header,main,nav .in{max-width:980px;margin:0 auto;padding-left:16px;padding-right:16px}
+header{padding-top:28px;padding-bottom:8px}header h1{margin:0 0 4px;font-size:26px}header p{margin:0;color:var(--soft)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .in{padding-top:8px;padding-bottom:8px;display:flex;gap:6px;flex-wrap:wrap}
+nav a{font-size:13px;color:var(--ink);text-decoration:none;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+main{padding-bottom:60px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin:18px 0}
+section h2{margin:0 0 2px;font-size:19px}.kick{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);font-weight:700}
+.sub{color:var(--soft);margin:2px 0 12px}
+code{font:13px/1.4 "SF Mono",Menlo,Consolas,monospace;background:var(--accent-soft);padding:1px 4px;border-radius:4px}
+button{font:inherit;font-size:14px;padding:7px 12px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+button.primary{background:var(--accent);color:var(--card);border-color:var(--accent)}
+label{font-size:14px;display:flex;gap:8px;align-items:center;margin:4px 0}
+select{max-width:100%;font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:14px;flex-wrap:wrap}.row>*{flex:1;min-width:min(260px,100%)}
+.explain{min-height:80px;border-left:3px solid var(--accent);padding:6px 12px;margin-top:10px;background:var(--accent-soft);border-radius:0 8px 8px 0}.explain b{display:block}
+.step{border:1px solid var(--line);border-radius:7px;padding:7px 10px;margin:5px 0;font-size:14px;opacity:.38}.step.on{opacity:1;border-color:var(--accent)}.step.bad{border-color:var(--bad)}
+.verdict{border-radius:8px;padding:10px 12px;font-weight:600;margin-top:8px}.verdict.ok{background:var(--ok-soft);color:var(--ok)}.verdict.bad{background:var(--bad-soft);color:var(--bad)}.verdict.mid{background:var(--accent-soft);color:var(--accent)}
+svg.dag{width:100%;height:auto}svg.dag text{fill:var(--ink)}svg.dag rect{fill:var(--card);stroke:var(--line);stroke-width:1.4}
+svg.dag .done rect{stroke:var(--ok);fill:var(--ok-soft)}svg.dag .cur rect{stroke:var(--accent);stroke-width:2.6;fill:var(--accent-soft)}svg.dag line{stroke:var(--soft);stroke-width:1.3}
+.q{border-top:1px solid var(--line);padding:12px 0}.q:first-child{border-top:0}.q p{margin:0 0 8px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;margin:5px 0}.opt.right{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}.opt.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.fb{display:none;font-size:14px;color:var(--soft);margin-top:6px}.score{font-weight:700;color:var(--accent);margin-top:10px}
+#theme{position:fixed;right:12px;bottom:12px}
+</style>
+</head>
+<body>
+<header><div class="kick">{{TITLE}} · companion</div><h1>Interactive companion</h1><p>Each panel matches a chapter of the printed book. Nothing here talks to a server.</p></header>
+<nav><div class="in" id="nav"></div></nav>
+<main id="main"></main>
+<button id="theme">◐ theme</button>
+<script>
+/* =====================  DATA: edit only this block  ===================== */
+const PANELS = [
+  { type: 'stepper', id: 'flow', chapter: 'Ch. 1', title: 'Example: a request, step by step',
+    intro: 'Press Next to walk through each stage.',
+    steps: [
+      { title: 'Browser sends a request', text: 'GET /page with a cookie that says who you are.' },
+      { title: 'Server answers', text: '200 OK with HTML.' },
+    ] },
+  { type: 'sim', id: 'sim', chapter: 'Ch. 2', title: 'Example: what will happen?',
+    intro: 'Choose the conditions; the matching path lights up.',
+    inputs: [ { id: 'exists', label: 'A saved reference exists', kind: 'checkbox', value: true } ],
+    paths: [ { id: 'compare', text: 'compare against the reference' }, { id: 'create', text: 'save a new reference' } ],
+    // Return which path ids light up, which are "bad", the verdict text and its tone (ok | bad | mid).
+    decide: (v) => v.exists ? { on: ['compare'], verdict: 'Compared: passes if nothing changed.', tone: 'ok' }
+                            : { on: ['create'], verdict: 'Nothing compared: a new reference was saved.', tone: 'mid' } },
+  { type: 'dag', id: 'dag', chapter: 'Ch. 3', title: 'Example: a pipeline',
+    intro: 'Press Next node.', width: 900, height: 160,
+    nodes: [ { id: 'a', x: 40, y: 20, label: 'build', text: 'Compiles the code.' },
+             { id: 'b', x: 360, y: 90, label: 'test', text: 'Runs the tests.' } ],
+    edges: [ ['a', 'b'] ], order: ['a', 'b'] },
+  { type: 'quiz', id: 'quiz', chapter: 'All', title: 'Self-marking quiz',
+    questions: [ { q: 'Example question?', options: ['wrong', 'right'], answer: 1, why: 'Because…' } ] },
+];
+/* =====================  end of DATA  ===================== */
+
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, attrs = {}, html = '') => Object.assign(document.createElement(tag), attrs, { innerHTML: html });
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function shell(p) {
+  $('#nav').append(el('a', { href: '#' + p.id }, `${esc(p.chapter)} · ${esc(p.title)}`));
+  const s = el('section', { id: p.id }, `<div class="kick">${esc(p.chapter)}</div><h2>${esc(p.title)}</h2><p class="sub">${esc(p.intro || '')}</p>`);
+  $('#main').append(s); return s;
+}
+const render = {
+  stepper(p, s) {
+    let i = -1; const list = el('div'); const ex = el('div', { className: 'explain' }, '<b>Ready</b>Press Next.');
+    p.steps.forEach((st) => list.append(el('div', { className: 'step' }, esc(st.title))));
+    const next = el('button', { className: 'primary' }, 'Next'), reset = el('button', {}, 'Restart');
+    const paint = () => { [...list.children].forEach((c, j) => c.classList.toggle('on', j <= i));
+      ex.innerHTML = i < 0 ? '<b>Ready</b>Press Next.' : `<b>${esc(p.steps[i].title)}</b>${esc(p.steps[i].text)}`; };
+    next.onclick = () => { if (i < p.steps.length - 1) i++; paint(); }; reset.onclick = () => { i = -1; paint(); };
+    s.append(next, ' ', reset, list, ex);
+  },
+  sim(p, s) {
+    const row = el('div', { className: 'row' }), ctl = el('div'), out = el('div'), verdict = el('div', { className: 'verdict' });
+    p.inputs.forEach((inp) => {
+      const id = `${p.id}-${inp.id}`;
+      if (inp.kind === 'select') ctl.append(el('label', {}, `${esc(inp.label)} <select id="${id}">${inp.options.map((o) => `<option${o === inp.value ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`));
+      else ctl.append(el('label', {}, `<input type="checkbox" id="${id}" ${inp.value ? 'checked' : ''}> ${esc(inp.label)}`));
+    });
+    const pathEls = p.paths.map((pa) => el('div', { className: 'step' }, esc(pa.text))); out.append(...pathEls);
+    const run = () => {
+      const v = Object.fromEntries(p.inputs.map((inp) => { const e = document.getElementById(`${p.id}-${inp.id}`); return [inp.id, inp.kind === 'select' ? e.value : e.checked]; }));
+      const r = p.decide(v); const on = new Set(r.on || []), bad = new Set(r.bad || []);
+      pathEls.forEach((c, j) => { c.classList.toggle('on', on.has(p.paths[j].id)); c.classList.toggle('bad', bad.has(p.paths[j].id)); });
+      verdict.className = 'verdict ' + (r.tone || 'mid'); verdict.textContent = r.verdict;
+    };
+    ctl.addEventListener('input', run); out.append(verdict); row.append(ctl, out); s.append(row); run();
+  },
+  dag(p, s) {
+    const W = 150, H = 40, svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'dag'); svg.setAttribute('viewBox', `0 0 ${p.width} ${p.height}`);
+    const N = Object.fromEntries(p.nodes.map((n) => [n.id, n]));
+    svg.innerHTML = p.edges.map(([a, b]) => `<line x1="${N[a].x + W / 2}" y1="${N[a].y + H}" x2="${N[b].x + W / 2}" y2="${N[b].y}"/>`).join('') +
+      p.nodes.map((n) => `<g data-k="${n.id}"><rect x="${n.x}" y="${n.y}" width="${W}" height="${H}" rx="6"/><text x="${n.x + W / 2}" y="${n.y + 25}" text-anchor="middle" font-size="13">${esc(n.label)}</text></g>`).join('');
+    let i = -1; const ex = el('div', { className: 'explain' }, '<b>Ready</b>Press Next node.');
+    const paint = () => svg.querySelectorAll('g').forEach((g) => { const k = p.order.indexOf(g.dataset.k); g.classList.toggle('done', k > -1 && k < i); g.classList.toggle('cur', k === i); });
+    const next = el('button', { className: 'primary' }, 'Next node'), reset = el('button', {}, 'Restart');
+    next.onclick = () => { if (i < p.order.length - 1) i++; paint(); const n = N[p.order[i]]; ex.innerHTML = `<b>${esc(n.label)}</b>${esc(n.text)}`; };
+    reset.onclick = () => { i = -1; paint(); ex.innerHTML = '<b>Ready</b>Press Next node.'; };
+    s.append(next, ' ', reset, svg, ex);
+  },
+  quiz(p, s) {
+    let done = 0, right = 0; const score = el('div', { className: 'score' });
+    p.questions.forEach((q, qi) => {
+      const d = el('div', { className: 'q' }, `<p>${qi + 1}. ${esc(q.q)}</p>`); const fb = el('div', { className: 'fb' }, esc(q.why));
+      const btns = q.options.map((o) => { const b = el('button', { className: 'opt' }, esc(o)); d.append(b); return b; });
+      btns.forEach((b, i) => (b.onclick = () => { btns.forEach((x, j) => { x.disabled = true; if (j === q.answer) x.classList.add('right'); });
+        if (i !== q.answer) b.classList.add('wrong'); else right++; fb.style.display = 'block'; done++;
+        score.textContent = `${right} / ${p.questions.length} correct` + (done === p.questions.length ? ': done.' : ''); }));
+      d.append(fb); s.append(d);
+    });
+    s.append(score);
+  },
+};
+PANELS.forEach((p) => render[p.type](p, shell(p)));
+(() => { const r = document.documentElement; try { const t = localStorage.getItem('companion-theme'); if (t) r.dataset.theme = t; } catch {}
+  $('#theme').onclick = () => { const dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    r.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('companion-theme', r.dataset.theme); } catch {} }; })();
+</script>
+</body>
+</html>

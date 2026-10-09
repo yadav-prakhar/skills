@@ -28,6 +28,8 @@ under **PrakharYadav Skills** in `npx skills list`.
 | [`change-tldr`](skills/change-tldr/SKILL.md) | Fast reviewer summary of a PR, issue chain, commit range, or session: before → now, guarantees, unchanged behavior, verification, and next steps. |
 | [`change-explainer`](skills/change-explainer/SKILL.md) | Thorough investigation of an engineering change: evidence hierarchy, intent versus reality, blast radius, risks, verification, and remaining work. |
 | [`eli5`](skills/eli5/SKILL.md) | Audience-adaptive explanation of concepts, code, systems, errors, and changes using the simplest accurate mental model. |
+| [`grounded-deliverable`](skills/grounded-deliverable/SKILL.md) | Task-agnostic quality protocol for any deliverable that makes claims about real code, systems or data: fresh sources, a claims ledger, cross-examined leads, open findings, and checking the artifact as the reader will meet it. |
+| [`study-book`](skills/study-book/SKILL.md) | Printable A4 self-study book (PDF) plus an interactive HTML companion that teaches a topic from zero, grounded in real repos and PRs. Bundles build, page-number, render-QA and companion-test scripts (Node + Playwright, Python + PyMuPDF). |
 | [`bro`](skills/bro/SKILL.md) | Restates the last message in plain human language with no jargon. Created by [Lauren Tan (poteto)](https://github.com/poteto) ([X](https://x.com/poteto)) in [pstack](https://github.com/cursor/plugins/tree/main/pstack); included with attribution. |
 
 Use `change-tldr` for the former ELI5 change-summary workflow, `change-explainer`

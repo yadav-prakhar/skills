@@ -72,9 +72,9 @@ git diff --check
 ### 5. Carry the change to docs
 
 Skill copies on docs can differ from master, on purpose or by drift. Run
-`git diff origin/master origin/docs -- skills/` to see which. Example: `skills/bro/SKILL.md`
-has the H1 the builder requires on docs and lacks it on master. Copying files wholesale from
-master breaks the docs build, so cherry-pick instead.
+`git diff origin/master origin/docs -- skills/` to see which. The builder requires an H1 in every
+`SKILL.md`, so a skill whose docs copy gains one needs the same H1 on master. Copying files
+wholesale from master breaks the docs build, so cherry-pick instead.
 
 ```bash
 git fetch origin docs:docs                       # fast-forwards local docs; refuses if diverged

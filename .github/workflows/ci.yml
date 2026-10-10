@@ -56,7 +56,7 @@ jobs:
         if: hashFiles('package.json') != ''
         run: |
           # Deliberate differences from master. Add a path only with a reason in the PR.
-          known_drift='skills/bro/SKILL.md'
+          known_drift=''
           unexpected=$(git diff --name-only origin/master HEAD -- skills/ | grep -vxF "$known_drift" || true)
           if [ -n "$unexpected" ]; then
             echo "Skill copies on docs differ from master and are not in known_drift:"

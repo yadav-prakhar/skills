@@ -147,5 +147,6 @@ claiming the site is live.
 
 - Do not put a project-only skill in `skills/`. The builder publishes every folder there that has a SKILL.md.
 - Keep `metadata: internal: true` in the frontmatter. Without it, `npx skills add yadav-prakhar/skills --list` shows this skill to everyone; with it, the CLI hides it (checked with a probe repo).
+- A top-level folder rename, not just a skill edit, also needs the docs cherry-pick: docs keeps its own copy of the backup tree (`archive/`, once `hermes-backup/`). `tests/site.test.mjs` hardcodes the backup folder name in its no-link guard, and `README.md` on both branches points at the path, so update all three in the same commit.
 - This skill lives on master under `.claude/skills/`. It is not on docs unless master is merged in.
 - The local `docs` and `master` branches go stale. Fetch before you read them.

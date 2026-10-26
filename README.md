@@ -82,17 +82,17 @@ and commit the updated `docs/` output with the skill changes.
 
 ## Hermes backup
 
-[`hermes-backup/`](hermes-backup/) is a backup of a Hermes default-profile skills directory,
-nested by category (for example, `hermes-backup/productivity/xlsx/SKILL.md`). It sits outside the
+[`archive/`](archive/) is a backup of a Hermes default-profile skills directory,
+nested by category (for example, `archive/productivity/xlsx/SKILL.md`). It sits outside the
 CLI's default scan paths, so it does not show up in `npx skills add yadav-prakhar/skills`.
 Install from it by path:
 
 ```bash
 # one category
-npx skills add https://github.com/yadav-prakhar/skills/tree/master/hermes-backup/productivity --list
+npx skills add https://github.com/yadav-prakhar/skills/tree/master/archive/productivity --list
 
 # one skill
-npx skills add https://github.com/yadav-prakhar/skills/tree/master/hermes-backup/productivity/xlsx
+npx skills add https://github.com/yadav-prakhar/skills/tree/master/archive/productivity/xlsx
 
 # everything, backup included
 npx skills add yadav-prakhar/skills --full-depth --list

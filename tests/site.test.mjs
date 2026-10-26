@@ -23,7 +23,8 @@ for (const slug of slugs) {
     assert.match(page, new RegExp(`https://github\\.com/yadav-prakhar/skills/blob/docs/skills/${slug}/SKILL\\.md`));
     assert.match(page, new RegExp(`<a href="/skills/skills/${slug}/" aria-current="page"`));
     for (const other of slugs) assert.match(page, new RegExp(`href="/skills/skills/${other}/"`));
-    assert.doesNotMatch(page, /hermes-backup|href="https:\/\/github\.com\/acme\//);
+    // The backup tree is not published; pages must not link into it.
+    assert.doesNotMatch(page, /skills\/archive\/|tree\/docs\/archive\/|href="https:\/\/github\.com\/acme\//);
     assert.match(page, /<meta name="description" content="[^"]+">/);
     assert.match(page, new RegExp(`<link rel="canonical" href="https://yadav-prakhar\\.github\\.io/skills/skills/${slug}/">`));
   });
@@ -40,7 +41,7 @@ test('homepage lists each published skill once in the repository grouping order'
     assert.ok(position > offset, group.title);
     offset = position;
   }
-  assert.doesNotMatch(page, /hermes-backup/);
+  assert.doesNotMatch(page, /skills\/archive\//);
   assert.doesNotMatch(page, /<div class="prose">/);
 });
 

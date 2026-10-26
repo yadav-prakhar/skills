@@ -1,3 +1,5 @@
-node_modules/
+.omc/
 .playwright-mcp/
+.vscode/
+node_modules/
 .DS_Store

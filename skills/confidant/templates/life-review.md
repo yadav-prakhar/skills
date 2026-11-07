@@ -1,7 +1,7 @@
 # Personal life review
 
-**Period:** [Month / quarter and year]  
-**Date completed:** [Date]
+- **Period:** [Month / quarter and year]
+- **Date completed:** [Date]
 
 This is a reflection, not a report card. Be honest and specific without turning the review into self-criticism.
 
@@ -52,11 +52,11 @@ This is a reflection, not a report card. Be honest and specific without turning 
 
 ## 8. The next period
 
-**Keep:** What is working and deserves to continue?  
-**Change:** What should I adjust or stop?  
-**Start:** What one small action would make a meaningful difference?  
-**Protect:** What relationship, routine, or time needs to be defended?  
-**Enjoy:** What am I looking forward to?
+- **Keep:** What is working and deserves to continue?
+- **Change:** What should I adjust or stop?
+- **Start:** What one small action would make a meaningful difference?
+- **Protect:** What relationship, routine, or time needs to be defended?
+- **Enjoy:** What am I looking forward to?
 
 ## 9. Commitments
 

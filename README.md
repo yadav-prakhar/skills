@@ -25,6 +25,7 @@ under **PrakharYadav Skills** in `npx skills list`.
 | --- | --- |
 | [`software-critique`](skills/software-critique/SKILL.md) | Panel-style critique of a product, codebase, or repository: evidence-backed findings, severity by user impact, verdict up front. |
 | [`medical-assistant`](skills/medical-assistant/SKILL.md) | Evidence-based lab report and biomarker analysis (references the full protocol in `references/master-prompt.md`). |
+| [`confidant`](skills/confidant/SKILL.md) | Candid, emotionally intelligent advisor for personal-life decisions: relationships, family, emotional well-being, health habits, personal finance, friendships, character, and purpose. Bundles reference frameworks and review templates. |
 | [`change-tldr`](skills/change-tldr/SKILL.md) | Fast reviewer summary of a PR, issue chain, commit range, or session: before → now, guarantees, unchanged behavior, verification, and next steps. |
 | [`change-explainer`](skills/change-explainer/SKILL.md) | Thorough investigation of an engineering change: evidence hierarchy, intent versus reality, blast radius, risks, verification, and remaining work. |
 | [`eli5`](skills/eli5/SKILL.md) | Audience-adaptive explanation of concepts, code, systems, errors, and changes using the simplest accurate mental model. |

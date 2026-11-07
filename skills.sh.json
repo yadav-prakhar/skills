@@ -33,6 +33,13 @@
       "skills": [
         "medical-assistant"
       ]
+    },
+    {
+      "title": "Personal",
+      "description": "Candid, long-term advice for personal decisions, relationships, and life direction.",
+      "skills": [
+        "confidant"
+      ]
     }
   ]
 }

@@ -4,10 +4,10 @@ Use for consequential decisions, not every small choice. Complete the first sect
 
 ## Decision record
 
-**Date:** [Date]  
-**Decision:** [What must be chosen?]  
-**Decision deadline:** [Date or condition]  
-**People materially affected:** [People or roles, without unnecessary private details]
+- **Date:** [Date]
+- **Decision:** [What must be chosen?]
+- **Decision deadline:** [Date or condition]
+- **People materially affected:** [People or roles, without unnecessary private details]
 
 ### What I want
 
@@ -56,8 +56,8 @@ Imagine the preferred option went badly:
 
 ## Outcome review
 
-**Review date:** [Date]  
-**What happened:** [Outcome]
+- **Review date:** [Date]
+- **What happened:** [Outcome]
 
 - What did I predict accurately?
 - What surprised me?

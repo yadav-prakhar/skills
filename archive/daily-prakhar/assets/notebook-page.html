@@ -1,0 +1,49 @@
+<!-- The Daily Prakhar — p5 "The Notebook" template.
+     Requires assets/notebook.css appended to the <style> block.
+     Insert <div class="page-break"></div> after p4's footer, then paste this
+     block. Do NOT add a masthead: p2–p5 begin at a section header, and the
+     fill figures in notebook.css were measured without one. The final page
+     group ends at its footer — no trailing page-break.
+     Replace every {{TOKEN}}; repeat the .tool block three times; delete a
+     region block if it is empty. Keep the four labelled beats in the concept:
+     they are the page's structure, not decoration. -->
+
+<div class="p5">
+<div class="section-header">The Notebook <span>One idea · Three tools · What's on</span></div>
+
+<div class="concept">
+  <div class="kicker">Concept {{CONCEPT_NO}} · {{DOMAIN}}</div>
+  <h2>{{CONCEPT_TITLE}}</h2>
+  <p><b>What it is.</b> {{DEFINITION}}</p>
+  <p><b>How it works.</b> {{MECHANISM_WITH_ONE_NUMBER}}</p>
+  <p><b>Where it bites.</b> {{CONSEQUENCE_OR_FAILURE}}</p>
+  <p><b>Say it in a review.</b> \u201c{{REUSABLE_SENTENCE}}\u201d</p>
+  <div class="check"><b>Check:</b> {{RETRIEVAL_QUESTION}}</div>
+  <div class="src">Source: {{PRIMARY_DOC}} · {{SECOND_SOURCE_AND_DATE}}</div>
+</div>
+
+<div class="section-header">Tools to Try <span>{{COST_LINE}}</span></div>
+<div class="grid-3">
+  <div class="tool">
+    <div class="sub">{{CATEGORY}}</div>
+    <h2>{{TOOL_NAME}}</h2>
+    <p>{{WHAT_IT_DOES_AND_WHAT_IS_NEW}}</p>
+    <div class="try">Try: {{COMMAND_OR_URL}}<br><span class="cost">{{Free|OSS|Free tier|Paid}}</span></div>
+  </div>
+  <!-- repeat .tool twice -->
+</div>
+
+<div class="section-header">Events — Dehradun &amp; Delhi NCR <span>Next 14 days</span></div>
+<div class="events">
+  <h3>Dehradun &amp; Uttarakhand</h3>
+  <div class="ev"><p><span class="when">{{Day DD Mon · H:MM am/pm}}</span> — {{EVENT_TITLE}}<br><span class="meta">{{VENUE_AND_AREA}} · {{COST_AND_REGISTRATION}}</span></p></div>
+  <!-- if empty: <div class="ev"><p class="empty">Nothing confirmed in the next fortnight.</p></div> -->
+
+  <h3>Delhi NCR</h3>
+  <div class="ev"><p><span class="when">{{Day DD Mon · H:MM am/pm}}</span> — {{EVENT_TITLE}}<br><span class="meta">{{VENUE_AND_AREA}} · {{COST_AND_REGISTRATION}}</span></p></div>
+</div>
+
+<div class="answers"><b>Answers — {{CONCEPT_NO}}:</b> {{ONE_SENTENCE_ANSWER}}</div>
+
+<div class="footer">The Daily Prakhar · Vol. 1, No. {{ISSUE}} · {{DATE}} · Sources: {{OUTLETS}}</div>
+</div>

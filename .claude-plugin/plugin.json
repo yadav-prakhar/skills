@@ -1,6 +1,6 @@
 {
   "name": "PrakharYadav-skills",
-  "description": "Prakhar Yadav's agent skills for software critique, clear explanations, engineering change communication, grounded deliverables, printable study books, lab-report analysis, and personal-life advice.",
+  "description": "Prakhar Yadav's agent skills for software critique, clear explanations, engineering change communication, grounded deliverables, printable study books, lab-report analysis, personal-life advice, and professional strategy.",
   "author": {
     "name": "Prakhar Yadav",
     "url": "https://github.com/yadav-prakhar"
@@ -15,6 +15,7 @@
     "./skills/medical-assistant",
     "./skills/grounded-deliverable",
     "./skills/study-book",
-    "./skills/confidant"
+    "./skills/confidant",
+    "./skills/consigliere"
   ]
 }

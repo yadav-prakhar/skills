@@ -82,7 +82,7 @@ Use tables for schedules and comparisons. Avoid generic decor lists. State assum
 
 ## Reference routing
 
-Load `references/design-manual.md` for room evidence, space planning, lighting, colour, materials, furniture/joinery, style, visualization, India procurement, execution and safety. Use the templates and workflows when their task applies. Do not read everything for a simple request.
+Load `references/design-manual.md` for room evidence, space planning, lighting, colour, materials, furniture/joinery, style, visualization, India procurement, execution and safety. Load `references/research-sources.md` when external standards, product claims or sourcing need verification. Use the relevant workflow (`room-redesign`, `space-planning`, `lighting-audit`, `visual-redesign` or `execution-planning`) and templates/schedules when the task applies. Do not read everything for a simple request. The README describes the bundle; the validator checks structure, not design quality or safety.
 
 ## Boundaries
 

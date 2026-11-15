@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="300" viewBox="0 0 1080 300" role="img" aria-labelledby="t d">
+<title id="t">Evidence-led interior design process</title><desc id="d">Five steps from observing the room to execution.</desc>
+<rect width="1080" height="300" rx="24" fill="#f6f3ed"/><text x="40" y="52" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#252525">From real room to buildable decision</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g><rect x="40" y="100" width="180" height="118" rx="14" fill="#e7e1d5"/><text x="130" y="146" font-size="18" font-weight="700" fill="#252525">01 · Observe</text><text x="130" y="176" font-size="13" fill="#555">Photos, facts, unknowns</text></g><path d="M225 159h26m-8-8 8 8-8 8" fill="none" stroke="#777" stroke-width="2"/>
+<g><rect x="260" y="100" width="180" height="118" rx="14" fill="#e5e9e7"/><text x="350" y="146" font-size="18" font-weight="700" fill="#252525">02 · Measure</text><text x="350" y="176" font-size="13" fill="#555">Plan, openings, services</text></g><path d="M445 159h26m-8-8 8 8-8 8" fill="none" stroke="#777" stroke-width="2"/>
+<g><rect x="480" y="100" width="180" height="118" rx="14" fill="#ece5e8"/><text x="570" y="146" font-size="18" font-weight="700" fill="#252525">03 · Design</text><text x="570" y="176" font-size="13" fill="#555">Function, form, layers</text></g><path d="M665 159h26m-8-8 8 8-8 8" fill="none" stroke="#777" stroke-width="2"/>
+<g><rect x="700" y="100" width="150" height="118" rx="14" fill="#e7e8ef"/><text x="775" y="146" font-size="18" font-weight="700" fill="#252525">04 · Validate</text><text x="775" y="176" font-size="13" fill="#555">Fit, power, budget</text></g><path d="M855 159h26m-8-8 8 8-8 8" fill="none" stroke="#777" stroke-width="2"/>
+<g><rect x="890" y="100" width="150" height="118" rx="14" fill="#e9e5d9"/><text x="965" y="146" font-size="18" font-weight="700" fill="#252525">05 · Execute</text><text x="965" y="176" font-size="13" fill="#555">Trades, checks, handover</text></g></g>
+<text x="40" y="260" font-family="Arial,sans-serif" font-size="14" fill="#666">Keep observed facts separate from assumptions and proposed changes.</text>
+</svg>

@@ -5,48 +5,37 @@
     {
       "title": "Software Critique",
       "description": "Evidence-backed reviews of software, products, and codebases.",
-      "skills": [
-        "software-critique"
-      ]
+      "skills": ["software-critique"]
     },
     {
       "title": "Code Communication",
       "description": "Accurate explanations of engineering changes and complex technical subjects.",
-      "skills": [
-        "change-tldr",
-        "change-explainer",
-        "eli5",
-        "bro"
-      ]
+      "skills": ["change-tldr", "change-explainer", "eli5", "bro"]
     },
     {
       "title": "Grounded Deliverables",
       "description": "Evidence-grounded reports, explainers and printable study books.",
-      "skills": [
-        "grounded-deliverable",
-        "study-book"
-      ]
+      "skills": ["grounded-deliverable", "study-book"]
     },
     {
       "title": "Health",
       "description": "Evidence-based lab report and biomarker analysis.",
-      "skills": [
-        "medical-assistant"
-      ]
+      "skills": ["medical-assistant"]
     },
     {
       "title": "Professional Strategy",
       "description": "Candid, discreet advice on organizational power, workplace conflict, negotiation, and career moves.",
-      "skills": [
-        "consigliere"
-      ]
+      "skills": ["consigliere"]
     },
     {
       "title": "Personal",
       "description": "Candid, long-term advice for personal decisions, relationships, and life direction.",
-      "skills": [
-        "confidant"
-      ]
+      "skills": ["confidant"]
+    },
+    {
+      "title": "Home & Space",
+      "description": "Evidence-aware interior design, lighting, space planning, visualization and execution.",
+      "skills": ["interior-designer"]
     }
   ]
 }

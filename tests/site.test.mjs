@@ -37,7 +37,8 @@ test('homepage lists each published skill once in the repository grouping order'
   }
   let offset = 0;
   for (const group of groups) {
-    const position = page.indexOf(`>${group.title}</h3>`, offset);
+    const escaped = group.title.replace(/&/g, "&amp;");
+    const position = page.indexOf(`>${escaped}</h3>`, offset);
     assert.ok(position > offset, group.title);
     offset = position;
   }

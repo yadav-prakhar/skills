@@ -17,6 +17,7 @@
     "./skills/study-book",
     "./skills/confidant",
     "./skills/consigliere",
-    "./skills/interior-designer"
+    "./skills/interior-designer",
+    "./skills/work-notes"
   ]
 }

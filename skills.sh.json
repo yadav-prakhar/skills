@@ -10,7 +10,7 @@
     {
       "title": "Code Communication",
       "description": "Accurate explanations of engineering changes and complex technical subjects.",
-      "skills": ["change-tldr", "change-explainer", "eli5", "bro"]
+      "skills": ["change-tldr", "change-explainer", "eli5", "bro", "work-notes"]
     },
     {
       "title": "Grounded Deliverables",

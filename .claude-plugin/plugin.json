@@ -16,6 +16,8 @@
     "./skills/grounded-deliverable",
     "./skills/study-book",
     "./skills/confidant",
-    "./skills/consigliere"
+    "./skills/consigliere",
+    "./skills/interior-designer",
+    "./skills/work-notes"
   ]
 }

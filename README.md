@@ -34,6 +34,7 @@ under **PrakharYadav Skills** in `npx skills list`.
 | [`study-book`](skills/study-book/SKILL.md) | Printable A4 self-study book (PDF) plus an interactive HTML companion that teaches a topic from zero, grounded in real repos and PRs. Bundles build, page-number, render-QA and companion-test scripts (Node + Playwright, Python + PyMuPDF). |
 | [`bro`](skills/bro/SKILL.md) | Restates the last message in plain human language with no jargon. Created by [Lauren Tan (poteto)](https://github.com/poteto) ([X](https://x.com/poteto)) in [pstack](https://github.com/cursor/plugins/tree/main/pstack); included with attribution. |
 | [`interior-designer`](skills/interior-designer/SKILL.md) | Evidence-aware interior design: room diagnosis, space planning, lighting, materials, visualization, product research and execution planning. |
+| [`work-notes`](skills/work-notes/SKILL.md) | Creates or resumes a dedicated folder of notes for one piece of work (a STRY, DEF or CS item, or a named task): plan, decisions, flow, walkthrough and handoff, kept outside git repositories. |
 
 Use `consigliere` when the question is professional—a manager, a colleague, a promotion, a negotiation, a conflict, or whether to leave—and `confidant` when it is personal. Each hands off to the other rather than guessing at the wrong kind of problem, so installing both gives the best routing. Install either alone and it still says what it can and cannot cover.
 

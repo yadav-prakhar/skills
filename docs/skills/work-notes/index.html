@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Work notes — Agent Skills</title>
+  <meta name="description" content="Create or resume a dedicated work-notes folder for one piece of work (a STRY/DEF/CS item or a named task) under a base folder (suggested: ~/Workspace/REPORTS/Work notes/), and keep its PLAN, DECISIONS">
+  <link rel="canonical" href="https://yadav-prakhar.github.io/skills/skills/work-notes/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Work notes — Agent Skills">
+  <meta property="og:description" content="Create or resume a dedicated work-notes folder for one piece of work (a STRY/DEF/CS item or a named task) under a base folder (suggested: ~/Workspace/REPORTS/Work notes/), and keep its PLAN, DECISIONS">
+  <meta property="og:url" content="https://yadav-prakhar.github.io/skills/skills/work-notes/">
+  <link rel="stylesheet" href="/skills/assets/style.css">
+  <script>try{let t=localStorage.getItem('skills-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  <script src="/skills/assets/site.js" defer></script>
+</head>
+<body class="skill-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="/skills/" aria-label="Skills home">SKILLS<span class="wordmark-period">.</span></a>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-label="Open skill navigation" aria-expanded="false" aria-controls="skill-sidebar"><span></span><span></span></button>
+        <a class="github-link" href="https://github.com/yadav-prakhar/skills">GitHub <span aria-hidden="true">↗</span></a>
+        <label class="theme-control"><span class="visually-hidden">Color theme</span><select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <aside class="sidebar" id="skill-sidebar" aria-label="Skill navigation">
+    <div class="sidebar-inner"><a class="sidebar-home" href="/skills/">All skills <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Browse skills">
+        <div class="nav-group"><h2>Software Critique</h2>
+          <ul><li><a href="/skills/skills/software-critique/">Software Critique</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Code Communication</h2>
+          <ul><li><a href="/skills/skills/change-tldr/">Change TL;DR</a></li><li><a href="/skills/skills/change-explainer/">Change Explainer</a></li><li><a href="/skills/skills/eli5/">ELI5</a></li><li><a href="/skills/skills/bro/">Bro</a></li><li><a href="/skills/skills/work-notes/" aria-current="page">Work notes</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Grounded Deliverables</h2>
+          <ul><li><a href="/skills/skills/grounded-deliverable/">Grounded deliverable</a></li><li><a href="/skills/skills/study-book/">Study book</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Health</h2>
+          <ul><li><a href="/skills/skills/medical-assistant/">Medical Assistant</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Professional Strategy</h2>
+          <ul><li><a href="/skills/skills/consigliere/">Consigliere</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Personal</h2>
+          <ul><li><a href="/skills/skills/confidant/">Confidant</a></li></ul>
+        </div>
+        <div class="nav-group"><h2>Home &amp; Space</h2>
+          <ul><li><a href="/skills/skills/interior-designer/">Interior Designer</a></li></ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+    <button class="nav-scrim" type="button" aria-label="Close skill navigation" hidden></button>
+    <main id="main" class="doc-main">
+      <article>
+        <header class="doc-intro"><p class="breadcrumb"><a href="/skills/">Skills</a><span aria-hidden="true">/</span>Code Communication<span aria-hidden="true">/</span>Work notes</p>
+          <h1>Work notes</h1>
+          <p class="doc-lede">Keep the planning and documentation for one piece of work in its own folder, outside every git repository.</p>
+          <div class="install-rail"><p class="install-label">Install</p>
+        <div class="install-command"><code>npx skills add yadav-prakhar/skills --skill work-notes</code><button class="copy-button" type="button" data-copy>Copy</button></div>
+        <p class="visually-hidden" role="status"></p>
+      </div>
+        </header>
+        <div class="prose"><h2 id="where-things-live">Where things live</h2>
+<ul>
+<li><strong>Base folder:</strong> the suggested default is <code>~/Workspace/REPORTS/Work notes/</code>, or a folder the user chooses. Settle it under <strong>Base folder setup</strong> first.</li>
+<li><strong>Areas</strong> (sub-folders of the base; pick the one that fits): <code>Defects</code>, <code>Visual Automation</code>, <code>Platform — SSR</code>, <code>Security defects</code>, <code>Skills For Work</code>. Run <code>ls</code> on the base folder each time, because more areas may exist. Copy area names byte for byte; several use an em dash (<code>—</code>), not a hyphen.</li>
+<li><strong>Work folder name:</strong> the work's id (STRY/DEF/CS number, if there is one) plus a short slug, for example <code>STRY0000000 - Example feature</code>.</li>
+<li><strong>Layout precedent:</strong> <code>Visual Automation/STRY0000000 - Example feature/Approach 2/</code> (plan, DECISIONS.md, FLOW.md, walkthrough, HANDOFF.md).</li>
+<li><strong>Index:</strong> <code>Readme — Work Notes Index.md</code> in the base folder.</li>
+</ul>
+<p>The skill's only state is the base-path config file (see <strong>Base folder setup</strong>). Do not use Claude project memory for it. The folders are the state.</p>
+<h2 id="base-folder-setup">Base folder setup</h2>
+<p>Run this before searching. Find the base in this order:</p>
+<ol>
+<li><strong>Config file:</strong> <code>${XDG_CONFIG_HOME:-$HOME/.config}/work-notes/base</code>, one line holding an absolute path. If the file exists and that path is a folder, use it.</li>
+<li><strong>Suggested default:</strong> otherwise, if <code>~/Workspace/REPORTS/Work notes/</code> exists, use it.</li>
+<li><strong>Ask:</strong> otherwise, ask once, in one message, with two options: a base folder of the user's own choice (they give the path), or create the suggested <code>~/Workspace/REPORTS/Work notes/</code>. Create nothing until they answer. Then create the chosen folder.</li>
+</ol>
+<p>When step 3 settles the base, write its absolute path to the config file, creating the <code>work-notes</code> folder if needed and overwriting any old value. Do not write the config file when the base came from step 1 or 2.</p>
+<ul>
+<li><strong>A new base folder</strong> has no areas or index yet. Create the area the work fits (from the list above) under it.</li>
+</ul>
+<h2 id="on-invocation">On invocation</h2>
+<ol>
+<li><strong>Search before creating.</strong> Look in the base folder (the one settled above) for the id or name, matching files as well as folders, case-insensitively and recursively:
+<code>find &quot;&lt;base&gt;&quot; -iname &quot;*&lt;id or keyword&gt;*&quot;</code>
+Some items exist only as a loose file (for example <code>Defects/DEF0000000.md</code>), and one id can appear in more than one area.
+<ul>
+<li><strong>One match:</strong> resume it. Do not create a duplicate. Read its plan, HANDOFF, DECISIONS and FLOW if present. Search the folder recursively, since they may be nested or named differently (<code>PLAN.md</code>, <code>* - Plan.md</code>, <code>HANDOFF.md</code>).</li>
+<li><strong>Several matches:</strong> list them and ask the user which to resume.</li>
+<li><strong>A loose file only:</strong> ask whether to make a folder around it or start fresh.</li>
+<li><strong>No match:</strong> go to step 2.</li>
+</ul>
+</li>
+<li><strong>Create.</strong> Make <code>&lt;base&gt;/&lt;area&gt;/&lt;id&gt; - &lt;slug&gt;/</code>, then write PLAN.md (below) before any execution.</li>
+<li><strong>Index the new folder.</strong> Read <code>Readme — Work Notes Index.md</code> first and follow its existing format. That means an Obsidian <code>[[wikilink]]</code> bullet under the matching area in the Index section, plus a row in the &quot;Status at a glance&quot; table. If the index file is missing (a new base folder), skip this step and say so.</li>
+</ol>
+<h2 id="files-in-each-work-folder">Files in each work folder</h2>
+<h3 id="planmd-written-before-any-execution">PLAN.md (written before any execution)</h3>
+<ul>
+<li>Frontmatter with <code>status:</code>, one of <code>planning</code>, <code>in-progress</code>, <code>awaiting-walkthrough-review</code>, <code>quiz-ready</code>, <code>done</code>.</li>
+<li>A header listing the repos, branches and PRs involved. Keep it current.</li>
+<li>The plan itself, and these rules stated in the file:
+<ul>
+<li>Log decisions in DECISIONS.md as they are made.</li>
+<li>Keep FLOW.md in step with code and process changes.</li>
+<li>Write WALKTHROUGH.md when the changes are done.</li>
+<li>Do NOT write or run the quiz until the user says they are ready, after reviewing the walkthrough.</li>
+</ul>
+</li>
+</ul>
+<h3 id="decisionsmd">DECISIONS.md</h3>
+<p>Record every meaningful decision and skip trivial ones. Each entry is dated and has:</p>
+<ul>
+<li><strong>Chosen:</strong> what was decided.</li>
+<li><strong>Why:</strong> with an evidence label: <code>[you]</code> (the user instructed it), <code>[read]</code> (from reading code or docs), <code>[spike]</code> (tested it), <code>[judgement]</code> (Claude's call).</li>
+<li><strong>Rejected:</strong> the alternatives, and why not.</li>
+<li><strong>Cost:</strong> what this choice gives up or risks.</li>
+</ul>
+<h3 id="flowmd">FLOW.md</h3>
+<p>How the work or system behaves end to end. Update it in the same turn as any code or process change it describes. Before declaring the work done, check FLOW.md against the actual code and fix any drift.</p>
+<h3 id="walkthroughmd">WALKTHROUGH.md</h3>
+<p>Write it when the changes are done. It has a plain-language explanation, then a file-by-file review guide so the user can review the change. Then set PLAN.md <code>status: awaiting-walkthrough-review</code>.</p>
+<h3 id="quiz-no-standing-file">Quiz (no standing file)</h3>
+<ul>
+<li>Do not write a quiz ahead of time, and keep no QUIZ file.</li>
+<li>After the walkthrough, ask once: &quot;Are you ready to quiz?&quot; Then wait. Do not ask again.</li>
+<li>Only after the user says they have reviewed and are ready: set <code>status: quiz-ready</code>, write the quiz from the final state of the files and code, then run it.</li>
+<li>Make every answer option in a question the same length, so length gives nothing away.</li>
+</ul>
+<h3 id="handoffmd-optional">HANDOFF.md (optional)</h3>
+<p>For resuming in a new session. Say where things stand, what is next, and which files to read first.</p>
+<h2 id="rules">Rules</h2>
+<ul>
+<li>Never commit, stage, or copy these work folders into any git repository. They are notes, not code.</li>
+<li>Update DECISIONS.md and FLOW.md in the same turn as the change they describe.</li>
+<li>A new session must search for an existing folder before creating one.</li>
+<li>Keep the suggested base path and area list here. The only state is the base-path config file at <code>${XDG_CONFIG_HOME:-$HOME/.config}/work-notes/base</code>. Work folders are found by search, never recorded there. No Claude project memory.</li>
+<li>Never create a work-notes folder unless the user asks. Outside <code>/work-notes</code>, offer at most once, in one line.</li>
+</ul>
+</div>
+        <section class="source-section" aria-labelledby="source-title"><h2 id="source-title">Source</h2><p>This page is generated from the repository skill file.</p>
+          <a href="https://github.com/yadav-prakhar/skills/blob/docs/skills/work-notes/SKILL.md">View SKILL.md on GitHub <span aria-hidden="true">↗</span></a>
+        </section>
+        <nav class="page-turn" aria-label="Adjacent skills">
+          <a href="/skills/skills/bro/" rel="prev"><span>← Previous</span><strong>Bro</strong></a>
+          <a href="/skills/skills/grounded-deliverable/" rel="next"><span>Next →</span><strong>Grounded deliverable</strong></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
